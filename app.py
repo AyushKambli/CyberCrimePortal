@@ -569,8 +569,7 @@ if __name__ == "__main__":
 
 
 # Update Complaint Status
-@app.route('/update_status/<int:id>', methods=['POST'])
-def update_status(id):
+
 
     status = request.form['status']
 
