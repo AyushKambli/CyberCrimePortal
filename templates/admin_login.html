@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Login</title>
+
+    <style>
+        body{
+            margin:0;
+            font-family:Arial, sans-serif;
+            background:#f4f4f4;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            height:100vh;
+        }
+
+        .container{
+            width:350px;
+            background:white;
+            padding:30px;
+            border-radius:10px;
+            box-shadow:0 0 10px rgba(0,0,0,0.2);
+        }
+
+        h2{
+            text-align:center;
+        }
+
+        input{
+            width:100%;
+            padding:10px;
+            margin:10px 0;
+            box-sizing:border-box;
+        }
+
+        input[type="submit"]{
+            background:#007BFF;
+            color:white;
+            border:none;
+            cursor:pointer;
+        }
+
+        input[type="submit"]:hover{
+            background:#0056b3;
+        }
+    </style>
+
+</head>
+<body>
+
+<div class="container">
+
+    <h2>Admin Login</h2>
+
+    <form action="/admin" method="POST">
+
+        <input type="text" name="username" placeholder="Enter Username" required>
+
+        <input type="password" name="password" placeholder="Enter Password" required>
+
+        <input type="submit" value="Login">
+
+    </form>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>File Complaint</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<div class="login-box" style="width:650px;">
+
+    <h2>File Cyber Crime Complaint</h2>
+
+    <form method="POST" enctype="multipart/form-data">
+
+        <input type="text" name="name" placeholder="Full Name" required>
+
+        <input type="email" name="email" placeholder="Email" required>
+
+        <input type="text" name="phone" placeholder="Phone Number" required>
+
+        <select name="crime_type" required>
+
+    <option value="">Select Crime Type</option>
+
+    <option value="Online Fraud">Online Fraud</option>
+
+    <option value="Cyber Bullying">Cyber Bullying</option>
+
+    <option value="Hacking">Hacking</option>
+
+    <option value="Identity Theft">Identity Theft</option>
+
+    <option value="Phishing">Phishing</option>
+
+    <option value="Financial Fraud">Financial Fraud</option>
+
+    <option value="Social Media Crime">Social Media Crime</option>
+
+    <option value="Data Theft">Data Theft</option>
+
+    <option value="Other">Other</option>
+
+</select>
+
+        <textarea
+            name="complaint"
+            placeholder="Describe your complaint"
+            rows="5"
+            style="width:90%;padding:12px;margin:10px;border:1px solid #ccc;border-radius:5px;"
+            required></textarea>
+
+        <input type="text" name="location" placeholder="Location" required>
+
+        <input type="date" name="complaint_date" required>
+
+        <label style="display:block; margin:10px;">
+Upload Evidence (Optional)
+</label>
+
+<input type="file" name="evidence">
+
+        <button type="submit">Submit Complaint</button>
+
+    </form>
+
+</div>
+
+</body>
+</html>

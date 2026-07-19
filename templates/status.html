@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Complaint Status</title>
+
+    <style>
+        body{
+            font-family:Arial, sans-serif;
+            background:#f4f4f4;
+            margin:0;
+        }
+
+        h2{
+            text-align:center;
+            background:#003366;
+            color:white;
+            padding:15px;
+            margin:0;
+        }
+
+        table{
+            width:90%;
+            margin:30px auto;
+            border-collapse:collapse;
+            background:white;
+        }
+
+        th, td{
+            border:1px solid #ddd;
+            padding:10px;
+            text-align:center;
+        }
+
+        th{
+            background:#007BFF;
+            color:white;
+        }
+
+        .back{
+            text-align:center;
+            margin-bottom:30px;
+        }
+
+        .back a{
+            text-decoration:none;
+            background:#007BFF;
+            color:white;
+            padding:10px 20px;
+            border-radius:5px;
+        }
+    </style>
+</head>
+
+<body>
+
+<h2>My Complaint Status</h2>
+
+<table>
+
+<tr>
+    <th>ID</th>
+    <th>Crime Type</th>
+    <th>Complaint</th>
+    <th>Location</th>
+    <th>Date</th>
+    <th>Status</th>
+</tr>
+
+{% for complaint in complaints %}
+<tr>
+    <td>{{ complaint.id }}</td>
+    <td>{{ complaint.crime_type }}</td>
+    <td>{{ complaint.complaint }}</td>
+    <td>{{ complaint.location }}</td>
+    <td>{{ complaint.complaint_date }}</td>
+    <td>{{ complaint.status }}</td>
+</tr>
+{% endfor %}
+
+</table>
+
+<div class="back">
+    <a href="/login">Back to Dashboard</a>
+</div>
+
+</body>
+</html>

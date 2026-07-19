@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Dashboard</title>
+</head>
+
+<body style="font-family:Arial; background:#f4f4f4;">
+
+<div style="width:600px; margin:50px auto; background:white; padding:30px; border-radius:10px; text-align:center;">
+
+    <h1>Welcome to Cyber Crime Complaint Portal</h1>
+
+    <h3>Welcome {{ username }}</h3>
+
+    {% if message %}
+    <p style="color:green; font-weight:bold;">
+        {{ message }}
+    </p>
+    {% endif %}
+
+    <br>
+
+    <a href="/complaint">
+        <button style="padding:10px 20px;">File Complaint</button>
+    </a>
+
+    <br><br>
+
+    <a href="/status">
+        <button style="padding:10px 20px;">View Complaint Status</button>
+    </a>
+
+    <br><br>
+
+    <a href="/logout">
+        <button style="padding:10px 20px; background:red; color:white; border:none;">
+            Logout
+        </button>
+    </a>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Complaint Details</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<div class="login-box" style="width:650px;">
+
+<h2>Complaint Details</h2>
+
+<p><b>Complaint ID:</b> {{ complaint.id }}</p>
+
+<p><b>Name:</b> {{ complaint.name }}</p>
+
+<p><b>Email:</b> {{ complaint.email }}</p>
+
+<p><b>Phone:</b> {{ complaint.phone }}</p>
+
+<p><b>Crime Type:</b> {{ complaint.crime_type }}</p>
+
+<p><b>Description:</b></p>
+
+<p>{{ complaint.complaint }}</p>
+
+<p><b>Location:</b> {{ complaint.location }}</p>
+
+<p><b>Complaint Date:</b> {{ complaint.complaint_date }}</p>
+
+<p><b>Status:</b> {{ complaint.status }}</p>
+
+{% if complaint.evidence %}
+
+<p>
+<b>Evidence:</b>
+
+<a href="/static/uploads/{{ complaint.evidence }}" target="_blank">
+View Evidence
+</a>
+
+</p>
+
+{% else %}
+
+<p><b>Evidence:</b> No file uploaded</p>
+
+{% endif %}
+
+
+<a href="/generate_pdf/{{ complaint.id }}">
+<button style="background:#28a745;color:white;">
+📄 Generate PDF Report
+</button>
+</a>
+
+
+<br><br>
+
+
+<a href="/admin">
+<button>
+Back to Dashboard
+</button>
+</a>
+
+</div>
+
+</body>
+</html>

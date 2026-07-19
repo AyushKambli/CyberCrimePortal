@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cyber Crime Admin Dashboard</title>
+
+    <style>
+
+        body{
+            margin:0;
+            font-family:Arial, sans-serif;
+            background:#eef2f7;
+        }
+
+        .header{
+            background:#0b1f4d;
+            color:white;
+            padding:20px;
+            text-align:center;
+            font-size:28px;
+            font-weight:bold;
+        }
+
+        .top-bar{
+            width:95%;
+            margin:20px auto;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+        }
+
+        .card{
+            background:white;
+            padding:20px;
+            border-radius:10px;
+            box-shadow:0 5px 15px rgba(0,0,0,0.2);
+            font-size:20px;
+            font-weight:bold;
+        }
+
+        .logout-btn{
+            background:#dc3545;
+            color:white;
+            text-decoration:none;
+            padding:10px 18px;
+            border-radius:5px;
+        }
+
+        table{
+            width:95%;
+            margin:20px auto;
+            border-collapse:collapse;
+            background:white;
+            box-shadow:0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        th{
+            background:#0b1f4d;
+            color:white;
+            padding:15px;
+        }
+
+        td{
+            padding:12px;
+            border:1px solid #ddd;
+            text-align:center;
+        }
+
+        select{
+            padding:8px;
+            border-radius:5px;
+        }
+
+        input[type=submit]{
+            padding:8px 15px;
+            background:#007BFF;
+            color:white;
+            border:none;
+            border-radius:5px;
+            cursor:pointer;
+        }
+
+        .delete-btn{
+            background:red;
+            color:white;
+        }
+
+        .pending{
+            background:#ffc107;
+            color:black;
+            padding:5px 10px;
+            border-radius:20px;
+            font-weight:bold;
+        }
+
+        .progress{
+            background:#17a2b8;
+            color:white;
+            padding:5px 10px;
+            border-radius:20px;
+            font-weight:bold;
+        }
+
+        .resolved{
+            background:#28a745;
+            color:white;
+            padding:5px 10px;
+            border-radius:20px;
+            font-weight:bold;
+        }
+
+    </style>
+
+</head>
+<body>
+
+<div class="header">
+🛡 Cyber Crime Complaint Portal - Admin Dashboard
+</div>
+
+<div class="top-bar">
+
+<div class="card total">
+    📝 Total Complaints
+    <br>
+    {{ total }}
+</div>
+
+
+<div class="card pending">
+    🟡 Pending
+    <br>
+    {{ pending }}
+</div>
+
+
+<div class="card progress">
+    🔵 In Progress
+    <br>
+    {{ progress }}
+</div>
+
+
+<div class="card resolved">
+    🟢 Resolved
+    <br>
+    {{ resolved }}
+</div>
+
+
+<a href="/admin_logout" class="logout-btn">
+Logout
+</a>
+
+</div>
+
+<h2 style="text-align:center;">
+Crime Type Analysis
+</h2>
+
+<canvas id="crimeChart" style="width:80%;max-width:700px;margin:auto;"></canvas>
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+<script>
+
+let crimeLabels = [
+{% for item in crime_data %}
+"{{ item.crime_type }}",
+{% endfor %}
+];
+
+
+let crimeCounts = [
+{% for item in crime_data %}
+{{ item.count }},
+{% endfor %}
+];
+
+
+new Chart(document.getElementById("crimeChart"), {
+
+type:"bar",
+
+data:{
+
+labels:crimeLabels,
+
+datasets:[{
+
+label:"Number of Complaints",
+
+data:crimeCounts
+
+}]
+
+},
+
+options:{
+
+responsive:true
+
+}
+
+});
+
+</script>
+
+<form action="/admin" method="GET" style="text-align:center; margin:20px;">
+    <input
+        type="text"
+        name="search"
+        placeholder="Search by Name, Email or Crime Type"
+        style="width:350px; padding:10px; border-radius:5px; border:1px solid #ccc;">
+
+    <button type="submit">Search</button>
+</form>
+
+<table>
+
+<tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Crime Type</th>
+    <th>Status</th>
+    <th>Update</th>
+    <th>View</th>
+    <th>Delete</th>
+</tr>
+
+{% for complaint in complaints %}
+
+<tr>
+
+<td>{{ complaint.id }}</td>
+
+<td>{{ complaint.name }}</td>
+
+<td>{{ complaint.email }}</td>
+
+<td>{{ complaint.crime_type }}</td>
+
+<td>
+
+{% if complaint.status=="Pending" %}
+<span class="pending">Pending</span>
+
+{% elif complaint.status=="In Progress" %}
+<span class="progress">In Progress</span>
+
+{% else %}
+<span class="resolved">Resolved</span>
+
+{% endif %}
+
+</td>
+
+<td>
+
+<form action="/update_status/{{ complaint.id }}" method="POST">
+
+<select name="status">
+
+<option value="Pending">Pending</option>
+
+<option value="In Progress">In Progress</option>
+
+<option value="Resolved">Resolved</option>
+
+</select>
+
+<br><br>
+
+<input type="submit" value="Update">
+
+</form>
+
+</td>
+
+<td>
+    <a href="/complaint_details/{{ complaint.id }}">
+        <button>View</button>
+    </a>
+</td>
+
+<td>
+
+<form action="/delete_complaint/{{ complaint.id }}" method="POST">
+
+<input class="delete-btn"
+type="submit"
+value="Delete"
+onclick="return confirm('Are you sure?')">
+
+</form>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+</body>
+</html>
