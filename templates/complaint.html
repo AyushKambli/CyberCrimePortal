@@ -1,69 +1,331 @@
+```html
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>File Complaint</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Complaint | CyberShield</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            padding: 35px 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            color: #eaffea;
+            background:
+                radial-gradient(ellipse at top, #102a1b 0%, #050a07 55%, #020403 100%);
+        }
+
+        .complaint-box {
+            width: 100%;
+            max-width: 720px;
+            padding: 35px;
+            background: rgba(8, 18, 12, 0.96);
+            border: 1px solid #00ff66;
+            border-radius: 18px;
+            box-shadow: 0 0 20px rgba(0, 255, 102, 0.15),
+                        0 0 45px rgba(0, 255, 102, 0.06);
+        }
+
+        .brand {
+            text-align: center;
+            color: #00ff66;
+            font-size: 14px;
+            font-weight: bold;
+            letter-spacing: 4px;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #00ff66;
+            font-size: 30px;
+            margin: 10px 0;
+            text-shadow: 0 0 12px rgba(0, 255, 102, 0.35);
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #a5b9aa;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 28px;
+        }
+
+        .section-title {
+            color: #00ff66;
+            font-size: 15px;
+            margin: 22px 0 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #1d432b;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            min-width: 0;
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            color: #c5d9ca;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 13px 14px;
+            border: 1px solid #285338;
+            border-radius: 9px;
+            background: #0b150e;
+            color: #f0fff3;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            outline: none;
+            transition: 0.25s;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #00ff66;
+            box-shadow: 0 0 10px rgba(0, 255, 102, 0.18);
+        }
+
+        input::placeholder,
+        textarea::placeholder {
+            color: #718477;
+        }
+
+        input[type="date"] {
+            color-scheme: dark;
+        }
+
+        input[type="file"] {
+            padding: 10px;
+            font-size: 12px;
+        }
+
+        input[type="file"]::file-selector-button {
+            background: #12351e;
+            color: #00ff66;
+            border: 1px solid #00ff66;
+            padding: 8px 10px;
+            border-radius: 6px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 125px;
+            line-height: 1.6;
+        }
+
+        .hint {
+            color: #829487;
+            font-size: 11px;
+            line-height: 1.5;
+        }
+
+        .submit-btn {
+            width: 100%;
+            margin-top: 25px;
+            padding: 15px;
+            border: 1px solid #00ff66;
+            border-radius: 9px;
+            background: #00ff66;
+            color: #031007;
+            font-size: 15px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: 0.25s;
+        }
+
+        .submit-btn:hover {
+            background: #031007;
+            color: #00ff66;
+            box-shadow: 0 0 20px rgba(0, 255, 102, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .bottom-links {
+            text-align: center;
+            margin-top: 22px;
+            font-size: 13px;
+            color: #9caf9f;
+        }
+
+        .bottom-links a {
+            color: #00ff66;
+            text-decoration: none;
+            margin: 0 8px;
+        }
+
+        .bottom-links a:hover {
+            text-decoration: underline;
+        }
+
+        .security-note {
+            text-align: center;
+            margin-top: 20px;
+            color: #789080;
+            font-size: 11px;
+        }
+
+        @media (max-width: 550px) {
+            .complaint-box {
+                padding: 23px 17px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .full-width {
+                grid-column: auto;
+            }
+        }
+    </style>
 </head>
+
 <body>
 
-<div class="login-box" style="width:650px;">
+<div class="complaint-box">
 
-    <h2>File Cyber Crime Complaint</h2>
+    <div class="brand">CYBERSHIELD</div>
+
+    <h1>File Cyber Crime Complaint</h1>
+
+    <p class="subtitle">
+        Report a cybercrime by completing the form below.
+        Please provide accurate information.
+    </p>
 
     <form method="POST" enctype="multipart/form-data">
 
-        <input type="text" name="name" placeholder="Full Name" required>
+        <h3 class="section-title">01 / Personal Information</h3>
 
-        <input type="email" name="email" placeholder="Email" required>
+        <div class="form-grid">
 
-        <input type="text" name="phone" placeholder="Phone Number" required>
+            <div class="field">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name"
+                       placeholder="Enter your full name" required>
+            </div>
 
-        <select name="crime_type" required>
+            <div class="field">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email"
+                       placeholder="Enter your email" required>
+            </div>
 
-    <option value="">Select Crime Type</option>
+            <div class="field">
+                <label for="phone">Phone Number</label>
+                <input type="text" id="phone" name="phone"
+                       placeholder="Enter your phone number" required>
+            </div>
 
-    <option value="Online Fraud">Online Fraud</option>
+            <div class="field">
+                <label for="location">Incident Location</label>
+                <input type="text" id="location" name="location"
+                       placeholder="City or area" required>
+            </div>
 
-    <option value="Cyber Bullying">Cyber Bullying</option>
+        </div>
 
-    <option value="Hacking">Hacking</option>
+        <h3 class="section-title">02 / Crime Details</h3>
 
-    <option value="Identity Theft">Identity Theft</option>
+        <div class="form-grid">
 
-    <option value="Phishing">Phishing</option>
+            <div class="field full-width">
+                <label for="crime_type">Type of Cybercrime</label>
 
-    <option value="Financial Fraud">Financial Fraud</option>
+                <select id="crime_type" name="crime_type" required>
+                    <option value="">Select Crime Type</option>
+                    <option value="Online Fraud">Online Fraud</option>
+                    <option value="Cyber Bullying">Cyber Bullying</option>
+                    <option value="Hacking">Hacking</option>
+                    <option value="Identity Theft">Identity Theft</option>
+                    <option value="Phishing">Phishing</option>
+                    <option value="Financial Fraud">Financial Fraud</option>
+                    <option value="Social Media Crime">Social Media Crime</option>
+                    <option value="Data Theft">Data Theft</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
 
-    <option value="Social Media Crime">Social Media Crime</option>
+            <div class="field">
+                <label for="complaint_date">Date of Incident</label>
+                <input type="date" id="complaint_date"
+                       name="complaint_date" required>
+            </div>
 
-    <option value="Data Theft">Data Theft</option>
+            <div class="field full-width">
+                <label for="complaint">Complaint Description</label>
+                <textarea id="complaint" name="complaint"
+                          placeholder="Describe what happened, including relevant details..."
+                          rows="5" required></textarea>
+            </div>
 
-    <option value="Other">Other</option>
+        </div>
 
-</select>
+        <h3 class="section-title">03 / Supporting Evidence</h3>
 
-        <textarea
-            name="complaint"
-            placeholder="Describe your complaint"
-            rows="5"
-            style="width:90%;padding:12px;margin:10px;border:1px solid #ccc;border-radius:5px;"
-            required></textarea>
+        <div class="field">
+            <label for="evidence">Upload Evidence (Optional)</label>
+            <input type="file" id="evidence" name="evidence">
+            <span class="hint">
+                Attach relevant screenshots or documents if supported by your portal.
+            </span>
+        </div>
 
-        <input type="text" name="location" placeholder="Location" required>
-
-        <input type="date" name="complaint_date" required>
-
-        <label style="display:block; margin:10px;">
-Upload Evidence (Optional)
-</label>
-
-<input type="file" name="evidence">
-
-        <button type="submit">Submit Complaint</button>
+        <button type="submit" class="submit-btn">
+            &gt; SUBMIT COMPLAINT
+        </button>
 
     </form>
+
+    <div class="bottom-links">
+        <a href="{{ url_for('dashboard') }}">← Dashboard</a>
+        <a href="{{ url_for('status') }}">Track Complaint</a>
+    </div>
+
+    <div class="security-note">
+        CYBERSHIELD // CYBER CRIME REPORTING PORTAL
+    </div>
 
 </div>
 
 </body>
 </html>
+```

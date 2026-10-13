@@ -1,73 +1,372 @@
+```html
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Complaint Details</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complaint Details | CyberShield</title>
 
-<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
 
+        body {
+            margin: 0;
+            padding: 25px 15px;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            background: radial-gradient(ellipse at top, #10251a, #050a07 65%, #020403);
+            color: #eaffef;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            margin: 25px auto;
+            padding: 32px;
+            background: rgba(8, 18, 12, 0.97);
+            border: 1px solid #245b36;
+            border-radius: 16px;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.35),
+                        0 0 20px rgba(0, 255, 102, 0.06);
+        }
+
+        .brand {
+            color: #00ff66;
+            font-size: 23px;
+            font-weight: bold;
+            margin-bottom: 28px;
+            letter-spacing: 1px;
+        }
+
+        .eyebrow {
+            color: #00ff66;
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            font-size: 28px;
+            margin: 0 0 10px;
+            color: #f0fff3;
+        }
+
+        .subtitle {
+            color: #a1b6a7;
+            margin-bottom: 28px;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .section-title {
+            font-size: 17px;
+            color: #00ff66;
+            margin: 28px 0 15px;
+        }
+
+        .details {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        .item {
+            background: #0c190f;
+            border: 1px solid #20452c;
+            border-radius: 10px;
+            padding: 17px;
+            min-width: 0;
+            overflow-wrap: anywhere;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+
+        .item:hover {
+            border-color: #00a844;
+            transform: translateY(-2px);
+        }
+
+        .full {
+            grid-column: 1 / -1;
+        }
+
+        .label {
+            color: #00ff66;
+            font-size: 11px;
+            margin-bottom: 10px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .value {
+            font-size: 14px;
+            line-height: 1.8;
+            white-space: pre-wrap;
+            color: #e0eee3;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 7px 12px;
+            border: 1px solid #36774a;
+            border-radius: 20px;
+            background: #10291a;
+            color: #8dffad;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 17px;
+            border: 1px solid #00ff66;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: bold;
+            transition: 0.25s;
+        }
+
+        .primary {
+            background: #00ff66;
+            color: #031007;
+        }
+
+        .secondary {
+            background: transparent;
+            color: #00ff66;
+        }
+
+        .btn:hover {
+            background: #07140b;
+            color: #00ff66;
+            box-shadow: 0 0 15px rgba(0, 255, 102, 0.18);
+            transform: translateY(-2px);
+        }
+
+        .evidence {
+            display: inline-block;
+            color: #00ff66;
+            text-decoration: none;
+            font-weight: bold;
+            overflow-wrap: anywhere;
+        }
+
+        .evidence:hover {
+            text-decoration: underline;
+        }
+
+        .hint {
+            color: #8ea596;
+            font-size: 12px;
+            line-height: 1.6;
+            margin-top: 10px;
+        }
+
+        .notice {
+            padding: 16px;
+            border: 1px solid #755b27;
+            background: #241f12;
+            color: #ffda8a;
+            border-radius: 9px;
+            line-height: 1.7;
+        }
+
+        footer {
+            text-align: center;
+            color: #6f8876;
+            font-size: 11px;
+            letter-spacing: 1px;
+            margin-top: 30px;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 12px;
+            }
+
+            .container {
+                padding: 21px 16px;
+                margin: 10px auto;
+            }
+
+            .details {
+                grid-template-columns: 1fr;
+            }
+
+            .full {
+                grid-column: auto;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            .buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                text-align: center;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-<div class="login-box" style="width:650px;">
+<div class="container">
 
-<h2>Complaint Details</h2>
+    <div class="brand">🛡️ CyberShield</div>
 
-<p><b>Complaint ID:</b> {{ complaint.id }}</p>
+    <div class="eyebrow">ADMIN PANEL / COMPLAINT RECORD</div>
 
-<p><b>Name:</b> {{ complaint.name }}</p>
+    <h1>Complaint Details</h1>
 
-<p><b>Email:</b> {{ complaint.email }}</p>
+    <p class="subtitle">
+        Review the submitted cybercrime report, complainant information,
+        current status, and supporting evidence.
+    </p>
 
-<p><b>Phone:</b> {{ complaint.phone }}</p>
+    {% if complaint %}
 
-<p><b>Crime Type:</b> {{ complaint.crime_type }}</p>
+    <h2 class="section-title">01 / Complaint Information</h2>
 
-<p><b>Description:</b></p>
+    <div class="details">
 
-<p>{{ complaint.complaint }}</p>
+        <div class="item">
+            <div class="label">Complaint ID</div>
+            <div class="value">#{{ complaint.get('id', 'Not available') }}</div>
+        </div>
 
-<p><b>Location:</b> {{ complaint.location }}</p>
+        <div class="item">
+            <div class="label">Crime Type</div>
+            <div class="value">{{ complaint.get('crime_type', 'Not available') }}</div>
+        </div>
 
-<p><b>Complaint Date:</b> {{ complaint.complaint_date }}</p>
+        <div class="item">
+            <div class="label">Incident Location</div>
+            <div class="value">{{ complaint.get('location', 'Not available') }}</div>
+        </div>
 
-<p><b>Status:</b> {{ complaint.status }}</p>
+        <div class="item">
+            <div class="label">Incident Date</div>
+            <div class="value">{{ complaint.get('complaint_date', 'Not available') }}</div>
+        </div>
 
-{% if complaint.evidence %}
+        <div class="item full">
+            <div class="label">Complaint Description</div>
+            <div class="value">{{ complaint.get('complaint', 'Not available') }}</div>
+        </div>
 
-<p>
-<b>Evidence:</b>
+        <div class="item">
+            <div class="label">Current Status</div>
+            <div class="value">
+                <span class="status">
+                    {{ complaint.get('status') or 'Pending' }}
+                </span>
+            </div>
+        </div>
 
-<a href="/static/uploads/{{ complaint.evidence }}" target="_blank">
-View Evidence
-</a>
+    </div>
 
-</p>
+    <h2 class="section-title">02 / Complainant Information</h2>
 
-{% else %}
+    <div class="details">
 
-<p><b>Evidence:</b> No file uploaded</p>
+        <div class="item">
+            <div class="label">Full Name</div>
+            <div class="value">{{ complaint.get('name', 'Not available') }}</div>
+        </div>
 
-{% endif %}
+        <div class="item">
+            <div class="label">Email Address</div>
+            <div class="value">{{ complaint.get('email', 'Not available') }}</div>
+        </div>
 
+        <div class="item full">
+            <div class="label">Phone Number</div>
+            <div class="value">{{ complaint.get('phone', 'Not available') }}</div>
+        </div>
 
-<a href="/generate_pdf/{{ complaint.id }}">
-<button style="background:#28a745;color:white;">
-📄 Generate PDF Report
-</button>
-</a>
+    </div>
 
+    <h2 class="section-title">03 / Supporting Evidence</h2>
 
-<br><br>
+    <div class="details">
+        <div class="item full">
+            <div class="label">Uploaded File</div>
 
+            {% if complaint.get('evidence') %}
+                <div class="value">
+                    <a class="evidence"
+                       href="{{ url_for('static', filename='uploads/' + complaint.get('evidence')) }}"
+                       target="_blank"
+                       rel="noopener noreferrer">
+                        📎 Open / View Evidence
+                    </a>
+                </div>
 
-<a href="/admin">
-<button>
-Back to Dashboard
-</button>
-</a>
+                <p class="hint">
+                    File: {{ complaint.get('evidence') }}
+                </p>
+            {% else %}
+                <div class="value">No evidence uploaded.</div>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="buttons">
+
+        <a href="{{ url_for('generate_pdf', id=complaint.get('id')) }}"
+           class="btn primary">
+            ↓ Download PDF
+        </a>
+
+        <a href="{{ url_for('admin_dashboard') }}"
+           class="btn secondary">
+            ← Back to Admin Dashboard
+        </a>
+
+        <a href="/"
+           class="btn secondary">
+            Home
+        </a>
+
+    </div>
+
+    {% else %}
+
+    <div class="notice">
+        No complaint data was received by this page.
+        Please check the Flask route and database query.
+    </div>
+
+    <div class="buttons">
+        <a href="{{ url_for('admin_dashboard') }}"
+           class="btn primary">
+            ← Back to Admin Dashboard
+        </a>
+    </div>
+
+    {% endif %}
+
+    <footer>
+        CYBERSHIELD // CYBER CRIME REPORTING PORTAL
+    </footer>
 
 </div>
 
 </body>
 </html>
+```

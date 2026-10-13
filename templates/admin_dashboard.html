@@ -1,308 +1,824 @@
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Cyber Crime Admin Dashboard</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | CyberShield</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <style>
-
-        body{
-            margin:0;
-            font-family:Arial, sans-serif;
-            background:#eef2f7;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        .header{
-            background:#0b1f4d;
-            color:white;
-            padding:20px;
-            text-align:center;
-            font-size:28px;
-            font-weight:bold;
+        :root {
+            --green: #00ff88;
+            --green-soft: #00cc6a;
+            --bg: #020605;
+            --panel: #07110d;
+            --border: #123b27;
+            --text: #e5fff0;
+            --muted: #8da99a;
         }
 
-        .top-bar{
-            width:95%;
-            margin:20px auto;
-            display:flex;
-            justify-content:space-between;
-            align-items:center;
+        body {
+            font-family: Arial, sans-serif;
+            background:
+                radial-gradient(ellipse at top right, #092419 0%, transparent 38%),
+                radial-gradient(ellipse at bottom left, #07190f 0%, transparent 35%),
+                var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
         }
 
-        .card{
-            background:white;
-            padding:20px;
-            border-radius:10px;
-            box-shadow:0 5px 15px rgba(0,0,0,0.2);
-            font-size:20px;
-            font-weight:bold;
+        /* HEADER */
+
+        .navbar {
+            background: rgba(3, 10, 7, 0.96);
+            border-bottom: 1px solid var(--green-soft);
+            box-shadow: 0 3px 22px rgba(0, 255, 136, 0.12);
+            padding: 18px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            position: relative;
         }
 
-        .logout-btn{
-            background:#dc3545;
-            color:white;
-            text-decoration:none;
-            padding:10px 18px;
-            border-radius:5px;
+        .brand {
+            color: var(--green);
+            font-size: 25px;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+            text-shadow: 0 0 15px rgba(0, 255, 136, 0.4);
         }
 
-        table{
-            width:95%;
-            margin:20px auto;
-            border-collapse:collapse;
-            background:white;
-            box-shadow:0 5px 15px rgba(0,0,0,0.2);
+        .navbar span {
+            color: var(--muted);
+            font-size: 13px;
+            letter-spacing: 1px;
         }
 
-        th{
-            background:#0b1f4d;
-            color:white;
-            padding:15px;
+        .logout {
+            background: #0b1c12;
+            border: 1px solid #24583a;
+            color: var(--green);
+            padding: 10px 17px;
+            border-radius: 7px;
+            text-decoration: none;
+            transition: 0.25s;
         }
 
-        td{
-            padding:12px;
-            border:1px solid #ddd;
-            text-align:center;
+        .logout:hover {
+            background: var(--green);
+            color: #001508;
+            box-shadow: 0 0 18px rgba(0, 255, 136, 0.35);
         }
 
-        select{
-            padding:8px;
-            border-radius:5px;
+        /* MAIN LAYOUT */
+
+        .main {
+            max-width: 1450px;
+            margin: auto;
+            padding: 32px 5%;
         }
 
-        input[type=submit]{
-            padding:8px 15px;
-            background:#007BFF;
-            color:white;
-            border:none;
-            border-radius:5px;
-            cursor:pointer;
+        .heading {
+            margin-bottom: 28px;
+            border-left: 3px solid var(--green);
+            padding-left: 16px;
         }
 
-        .delete-btn{
-            background:red;
-            color:white;
+        .heading h1 {
+            font-size: 30px;
+            margin-bottom: 9px;
+            letter-spacing: 0.5px;
         }
 
-        .pending{
-            background:#ffc107;
-            color:black;
-            padding:5px 10px;
-            border-radius:20px;
-            font-weight:bold;
+        .heading h1::after {
+            content: "";
+            display: block;
+            width: 65px;
+            height: 3px;
+            background: var(--green);
+            box-shadow: 0 0 12px var(--green);
+            margin-top: 12px;
         }
 
-        .progress{
-            background:#17a2b8;
-            color:white;
-            padding:5px 10px;
-            border-radius:20px;
-            font-weight:bold;
+        .heading p {
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.6;
         }
 
-        .resolved{
-            background:#28a745;
-            color:white;
-            padding:5px 10px;
-            border-radius:20px;
-            font-weight:bold;
+        /* 3D STAT CARDS */
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 18px;
+            margin-bottom: 28px;
         }
 
+        .stat-card {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(145deg, #10251a, #050b08 65%);
+            border: 1px solid #17613b;
+            border-radius: 11px;
+            padding: 24px;
+            box-shadow:
+                inset 0 1px 0 rgba(255, 255, 255, 0.035),
+                0 7px 0 #031008,
+                0 10px 22px rgba(0, 0, 0, 0.45);
+            transition: transform 0.25s, box-shadow 0.25s;
+        }
+
+        .stat-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 65px;
+            height: 3px;
+            background: var(--green);
+            box-shadow: 0 0 15px var(--green);
+        }
+
+        .stat-card::after {
+            content: "";
+            position: absolute;
+            width: 110px;
+            height: 110px;
+            right: -55px;
+            bottom: -65px;
+            border-radius: 50%;
+            background: rgba(0, 255, 136, 0.07);
+            filter: blur(10px);
+            pointer-events: none;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--green);
+            box-shadow:
+                inset 0 1px 0 rgba(255, 255, 255, 0.05),
+                0 7px 0 #031008,
+                0 0 23px rgba(0, 255, 136, 0.16);
+        }
+
+        .stat-card p {
+            color: #a1bbaa;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .stat-card h2 {
+            font-size: 34px;
+            color: var(--green);
+            text-shadow: 0 0 14px rgba(0, 255, 136, 0.22);
+        }
+
+        .stat-card:nth-child(2) {
+            border-color: #6b5020;
+        }
+
+        .stat-card:nth-child(2)::before {
+            background: #ffc857;
+            box-shadow: 0 0 12px #ffc857;
+        }
+
+        .stat-card:nth-child(2) h2 {
+            color: #ffc857;
+            text-shadow: 0 0 12px rgba(255, 200, 87, 0.2);
+        }
+
+        .stat-card:nth-child(3) {
+            border-color: #15546b;
+        }
+
+        .stat-card:nth-child(3)::before {
+            background: #22cfff;
+            box-shadow: 0 0 12px #22cfff;
+        }
+
+        .stat-card:nth-child(3) h2 {
+            color: #22cfff;
+            text-shadow: 0 0 12px rgba(34, 207, 255, 0.2);
+        }
+
+        .stat-card:nth-child(4) {
+            border-color: #17613b;
+        }
+
+        /* PANELS */
+
+        .panel {
+            position: relative;
+            background: linear-gradient(145deg, #09140e, #040907);
+            border: 1px solid var(--border);
+            border-radius: 11px;
+            padding: 24px;
+            margin-bottom: 25px;
+            box-shadow:
+                inset 0 1px 0 rgba(255, 255, 255, 0.025),
+                0 7px 0 #020604,
+                0 12px 28px rgba(0, 0, 0, 0.25);
+        }
+
+        .panel h2 {
+            font-size: 19px;
+            margin-bottom: 22px;
+            color: #d8ffea;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .panel h2::before {
+            content: "";
+            display: inline-block;
+            width: 4px;
+            height: 22px;
+            background: var(--green);
+            border-radius: 3px;
+            box-shadow: 0 0 10px rgba(0, 255, 136, 0.6);
+        }
+
+        .chart-box {
+            max-width: 500px;
+            height: 280px;
+            margin: auto;
+            position: relative;
+        }
+
+        /* SEARCH */
+
+        .search-form {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 18px;
+            flex-wrap: wrap;
+        }
+
+        .search-form input {
+            flex: 1;
+            min-width: 180px;
+            padding: 12px 14px;
+            background: #030906;
+            color: white;
+            border: 1px solid #204a32;
+            border-radius: 7px;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .search-form input::placeholder {
+            color: #718d7d;
+        }
+
+        .search-form input:focus,
+        .status-filter:focus {
+            border-color: var(--green);
+            box-shadow: 0 0 10px rgba(0, 255, 136, 0.12);
+        }
+
+        button {
+            cursor: pointer;
+            border: none;
+            border-radius: 6px;
+            padding: 10px 13px;
+            font-weight: bold;
+            font-family: inherit;
+            transition: 0.2s;
+        }
+
+        button:focus-visible,
+        a:focus-visible,
+        select:focus-visible,
+        input:focus-visible {
+            outline: 2px solid var(--green);
+            outline-offset: 3px;
+        }
+
+        .search-btn {
+            background: var(--green);
+            color: #001409;
+        }
+
+        .search-btn:hover,
+        .update-btn:hover {
+            background: #73ffb8;
+            box-shadow: 0 0 14px rgba(0, 255, 136, 0.25);
+        }
+
+        .reset-btn {
+            background: #10271a;
+            color: #b7fbd4;
+            border: 1px solid #28573a;
+            text-decoration: none;
+            padding: 12px;
+            border-radius: 7px;
+            font-size: 13px;
+            transition: 0.2s;
+        }
+
+        .reset-btn:hover {
+            border-color: var(--green);
+            color: var(--green);
+        }
+
+        .status-filter {
+            padding: 12px;
+            background: #030906;
+            color: white;
+            border: 1px solid #204a32;
+            border-radius: 7px;
+            outline: none;
+            max-width: 100%;
+        }
+
+        .result-count {
+            color: var(--muted);
+            font-size: 13px;
+            margin-bottom: 15px;
+        }
+
+        /* COMPLAINT TABLE */
+
+        .table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+            border: 1px solid #173d28;
+            border-radius: 8px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 850px;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 14px 12px;
+            border-bottom: 1px solid #142c1e;
+            font-size: 13px;
+            vertical-align: middle;
+        }
+
+        th {
+            color: var(--green);
+            background: #0b1c12;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            white-space: nowrap;
+        }
+
+        td {
+            color: #d2e7da;
+        }
+
+        tbody tr {
+            transition: background 0.2s;
+        }
+
+        tbody tr:hover td {
+            background: rgba(0, 255, 136, 0.045);
+        }
+
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* STATUS CONTROLS */
+
+        .status-form {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+        select {
+            max-width: 145px;
+            padding: 8px;
+            background: #050c08;
+            color: white;
+            border: 1px solid #28543a;
+            border-radius: 6px;
+        }
+
+        .update-btn {
+            background: var(--green);
+            color: #001409;
+            font-size: 11px;
+            white-space: nowrap;
+        }
+
+        .details-btn {
+            display: inline-block;
+            background: #09251a;
+            border: 1px solid #087a46;
+            color: var(--green);
+            text-decoration: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            white-space: nowrap;
+            transition: 0.2s;
+        }
+
+        .details-btn:hover {
+            background: var(--green);
+            color: #001409;
+            box-shadow: 0 0 12px rgba(0, 255, 136, 0.25);
+        }
+
+        .delete-btn {
+            background: #260d12;
+            border: 1px solid #70222e;
+            color: #ff8495;
+            font-size: 12px;
+        }
+
+        .delete-btn:hover {
+            background: #a32238;
+            color: white;
+            box-shadow: 0 0 12px rgba(255, 40, 70, 0.18);
+        }
+
+        .empty {
+            text-align: center;
+            color: var(--muted);
+            padding: 25px;
+        }
+
+        /* FOOTER */
+
+        .footer {
+            text-align: center;
+            color: #64806f;
+            font-size: 12px;
+            padding: 25px;
+            border-top: 1px solid #11291b;
+            background: #030705;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 900px) {
+            .stats {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 500px) {
+            .navbar {
+                padding: 16px 4%;
+            }
+
+            .brand {
+                font-size: 21px;
+            }
+
+            .navbar span {
+                flex-basis: 100%;
+                order: 3;
+            }
+
+            .main {
+                padding: 22px 4%;
+            }
+
+            .stats {
+                gap: 12px;
+            }
+
+            .stat-card {
+                padding: 16px;
+            }
+
+            .stat-card p {
+                font-size: 10px;
+            }
+
+            .stat-card h2 {
+                font-size: 27px;
+            }
+
+            .heading h1 {
+                font-size: 24px;
+            }
+
+            .panel {
+                padding: 16px;
+            }
+
+            .panel h2 {
+                font-size: 17px;
+            }
+
+            .search-form input {
+                flex-basis: 100%;
+                min-width: 0;
+            }
+
+            .search-btn,
+            .reset-btn,
+            .status-filter {
+                flex: 1;
+                text-align: center;
+            }
+
+            .chart-box {
+                height: 250px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                transition: none !important;
+            }
+        }
     </style>
-
 </head>
+
 <body>
+<nav class="navbar">
+    <div class="brand">🛡️ CyberShield</div>
+    <span>ADMINISTRATOR CONTROL PANEL</span>
+    <a href="/admin_logout" class="logout">Logout ↗</a>
+</nav>
 
-<div class="header">
-🛡 Cyber Crime Complaint Portal - Admin Dashboard
-</div>
+<main class="main">
+    <section class="heading">
+        <h1>Welcome Back, Admin</h1>
+        <p>Monitor complaints and manage cybercrime reports.</p>
+    </section>
 
-<div class="top-bar">
+    <section class="stats">
+        <div class="stat-card">
+            <p>Total Complaints</p>
+            <h2>{{ total }}</h2>
+        </div>
 
-<div class="card total">
-    📝 Total Complaints
-    <br>
-    {{ total }}
-</div>
+        <div class="stat-card">
+            <p>Pending Complaints</p>
+            <h2>{{ pending }}</h2>
+        </div>
 
+        <div class="stat-card">
+            <p>In Progress</p>
+            <h2>{{ progress }}</h2>
+        </div>
 
-<div class="card pending">
-    🟡 Pending
-    <br>
-    {{ pending }}
-</div>
+        <div class="stat-card">
+            <p>Resolved Complaints</p>
+            <h2>{{ resolved }}</h2>
+        </div>
+    </section>
 
+    <section class="panel">
+        <h2>Complaint Overview</h2>
 
-<div class="card progress">
-    🔵 In Progress
-    <br>
-    {{ progress }}
-</div>
+        <div class="chart-box">
+            <canvas id="complaintChart"></canvas>
+        </div>
+    </section>
 
+    <section class="panel">
+        <h2>Manage Complaints</h2>
 
-<div class="card resolved">
-    🟢 Resolved
-    <br>
-    {{ resolved }}
-</div>
+        <form class="search-form" method="GET" action="/admin/dashboard">
+            <input
+                type="text"
+                name="search"
+                placeholder="Search complaints..."
+                value="{{ request.args.get('search', '') }}"
+                aria-label="Search complaints">
 
+            <button type="submit" class="search-btn">Search</button>
 
-<a href="/admin_logout" class="logout-btn">
-Logout
-</a>
+            <a href="/admin/dashboard" class="reset-btn">Reset</a>
 
-</div>
+            <select
+                id="statusFilter"
+                class="status-filter"
+                aria-label="Filter complaints by status">
+                <option value="all">All Statuses</option>
+                <option value="Pending">Pending</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Resolved">Resolved</option>
+            </select>
+        </form>
 
-<h2 style="text-align:center;">
-Crime Type Analysis
-</h2>
+        <p class="result-count" id="resultCount" aria-live="polite"></p>
 
-<canvas id="crimeChart" style="width:80%;max-width:700px;margin:auto;"></canvas>
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Complainant</th>
+                        <th>Crime Type</th>
+                        <th>Location</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Details</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
 
+                <tbody>
+                {% for complaint in complaints %}
+                    <tr>
+                        <td>{{ complaint.id }}</td>
+                        <td>{{ complaint.name }}</td>
+                        <td>{{ complaint.crime_type }}</td>
+                        <td>{{ complaint.location }}</td>
+                        <td>{{ complaint.complaint_date }}</td>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                        <td>
+                            <form
+                                class="status-form"
+                                method="POST"
+                                action="/update_status/{{ complaint.id }}">
 
+                                <select
+                                    name="status"
+                                    aria-label="Status for complaint {{ complaint.id }}">
+
+                                    <option value="Pending"
+                                        {% if complaint.status|lower == 'pending' %}selected{% endif %}>
+                                        Pending
+                                    </option>
+
+                                    <option value="In Progress"
+                                        {% if complaint.status|lower == 'in progress' %}selected{% endif %}>
+                                        In Progress
+                                    </option>
+
+                                    <option value="Resolved"
+                                        {% if complaint.status|lower == 'resolved' %}selected{% endif %}>
+                                        Resolved
+                                    </option>
+                                </select>
+
+                                <button class="update-btn" type="submit">
+                                    Update
+                                </button>
+                            </form>
+                        </td>
+
+                        <td>
+                            <a
+                                href="/complaint_details/{{ complaint.id }}"
+                                class="details-btn">
+                                View
+                            </a>
+                        </td>
+
+                        <td>
+                            <form
+                                method="POST"
+                                action="/delete_complaint/{{ complaint.id }}"
+                                onsubmit="return confirm('Are you sure you want to delete complaint #{{ complaint.id }}? This action cannot be undone.');">
+
+                                <button class="delete-btn" type="submit">
+                                    Delete
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="8" class="empty">No complaints found.</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+</main>
+
+<footer class="footer">
+    © 2026 CyberShield | Cyber Crime Complaint Portal
+</footer>
 
 <script>
+document.addEventListener("DOMContentLoaded", function () {
+    // Complaint chart
+    const chartCanvas = document.getElementById("complaintChart");
 
-let crimeLabels = [
-{% for item in crime_data %}
-"{{ item.crime_type }}",
-{% endfor %}
-];
+    if (chartCanvas && typeof Chart !== "undefined") {
+        new Chart(chartCanvas, {
+            type: "doughnut",
+            data: {
+                labels: ["Pending", "In Progress", "Resolved"],
+                datasets: [{
+                    data: [
+                        {{ pending | default(0) | int }},
+                        {{ progress | default(0) | int }},
+                        {{ resolved | default(0) | int }}
+                    ],
+                    backgroundColor: [
+                        "#ffc857",
+                        "#22cfff",
+                        "#00ff88"
+                    ],
+                    borderColor: "#07110d",
+                    borderWidth: 4,
+                    hoverOffset: 8
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: "bottom",
+                        labels: {
+                            color: "#d2e7da",
+                            padding: 20,
+                            usePointStyle: true
+                        }
+                    }
+                }
+            }
+        });
+    } else {
+        console.error(
+            "Chart.js did not load or chart canvas is missing."
+        );
+    }
 
+    // Preserve the existing client-side status filter
+    const statusFilter = document.getElementById("statusFilter");
+    const tableBody = document.querySelector(".table-wrapper tbody");
+    const resultCount = document.getElementById("resultCount");
 
-let crimeCounts = [
-{% for item in crime_data %}
-{{ item.count }},
-{% endfor %}
-];
+    function filterComplaints() {
+        const selectedStatus = statusFilter.value;
+        const rows = tableBody.querySelectorAll("tr");
+        let visibleCount = 0;
 
+        rows.forEach(function (row) {
+            const statusSelect = row.querySelector(".status-form select");
 
-new Chart(document.getElementById("crimeChart"), {
+            if (!statusSelect) {
+                row.style.display = "";
+                return;
+            }
 
-type:"bar",
+            const matches = selectedStatus === "all" ||
+                statusSelect.value.toLowerCase() ===
+                selectedStatus.toLowerCase();
 
-data:{
+            row.style.display = matches ? "" : "none";
 
-labels:crimeLabels,
+            if (matches) {
+                visibleCount++;
+            }
+        });
 
-datasets:[{
+        let emptyRow = document.getElementById("noComplaintsRow");
 
-label:"Number of Complaints",
+        if (visibleCount === 0) {
+            if (!emptyRow) {
+                emptyRow = document.createElement("tr");
+                emptyRow.id = "noComplaintsRow";
 
-data:crimeCounts
+                const cell = document.createElement("td");
+                cell.colSpan = 8;
+                cell.className = "empty";
+                cell.textContent =
+                    "No complaints found for this status.";
 
-}]
+                emptyRow.appendChild(cell);
+                tableBody.appendChild(emptyRow);
+            }
 
-},
+            emptyRow.style.display = "";
+        } else if (emptyRow) {
+            emptyRow.remove();
+        }
 
-options:{
+        resultCount.textContent =
+            "Showing " + visibleCount + " complaint(s)";
+    }
 
-responsive:true
-
-}
-
+    statusFilter.addEventListener("change", filterComplaints);
+    filterComplaints();
 });
-
 </script>
-
-<form action="/admin" method="GET" style="text-align:center; margin:20px;">
-    <input
-        type="text"
-        name="search"
-        placeholder="Search by Name, Email or Crime Type"
-        style="width:350px; padding:10px; border-radius:5px; border:1px solid #ccc;">
-
-    <button type="submit">Search</button>
-</form>
-
-<table>
-
-<tr>
-    <th>ID</th>
-    <th>Name</th>
-    <th>Email</th>
-    <th>Crime Type</th>
-    <th>Status</th>
-    <th>Update</th>
-    <th>View</th>
-    <th>Delete</th>
-</tr>
-
-{% for complaint in complaints %}
-
-<tr>
-
-<td>{{ complaint.id }}</td>
-
-<td>{{ complaint.name }}</td>
-
-<td>{{ complaint.email }}</td>
-
-<td>{{ complaint.crime_type }}</td>
-
-<td>
-
-{% if complaint.status=="Pending" %}
-<span class="pending">Pending</span>
-
-{% elif complaint.status=="In Progress" %}
-<span class="progress">In Progress</span>
-
-{% else %}
-<span class="resolved">Resolved</span>
-
-{% endif %}
-
-</td>
-
-<td>
-
-<form action="/update_status/{{ complaint.id }}" method="POST">
-
-<select name="status">
-
-<option value="Pending">Pending</option>
-
-<option value="In Progress">In Progress</option>
-
-<option value="Resolved">Resolved</option>
-
-</select>
-
-<br><br>
-
-<input type="submit" value="Update">
-
-</form>
-
-</td>
-
-<td>
-    <a href="/complaint_details/{{ complaint.id }}">
-        <button>View</button>
-    </a>
-</td>
-
-<td>
-
-<form action="/delete_complaint/{{ complaint.id }}" method="POST">
-
-<input class="delete-btn"
-type="submit"
-value="Delete"
-onclick="return confirm('Are you sure?')">
-
-</form>
-
-</td>
-
-</tr>
-
-{% endfor %}
-
-</table>
 
 </body>
 </html>

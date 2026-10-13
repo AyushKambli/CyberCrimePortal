@@ -1,87 +1,326 @@
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Complaint Status</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Complaint Status | CyberShield</title>
 
     <style>
-        body{
-            font-family:Arial, sans-serif;
-            background:#f4f4f4;
-            margin:0;
+        * {
+            box-sizing: border-box;
         }
 
-        h2{
-            text-align:center;
-            background:#003366;
-            color:white;
-            padding:15px;
-            margin:0;
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            background:
+                radial-gradient(ellipse at top, #10251a 0%, #070c09 55%, #020403 100%);
+            color: #eaffef;
         }
 
-        table{
-            width:90%;
-            margin:30px auto;
-            border-collapse:collapse;
-            background:white;
+        header {
+            padding: 25px 15px;
+            text-align: center;
+            background: rgba(8, 18, 12, 0.95);
+            border-bottom: 1px solid #00ff66;
+            box-shadow: 0 4px 20px rgba(0, 255, 102, 0.08);
         }
 
-        th, td{
-            border:1px solid #ddd;
-            padding:10px;
-            text-align:center;
+        .brand {
+            color: #00ff66;
+            font-size: 13px;
+            font-weight: bold;
+            letter-spacing: 4px;
+            margin-bottom: 12px;
         }
 
-        th{
-            background:#007BFF;
-            color:white;
+        h1 {
+            margin: 0;
+            color: #00ff66;
+            font-size: 30px;
+            text-shadow: 0 0 12px rgba(0, 255, 102, 0.25);
         }
 
-        .back{
-            text-align:center;
-            margin-bottom:30px;
+        header p {
+            color: #a4b9a9;
+            margin-bottom: 0;
+            font-size: 14px;
         }
 
-        .back a{
-            text-decoration:none;
-            background:#007BFF;
-            color:white;
-            padding:10px 20px;
-            border-radius:5px;
+        .container {
+            width: 94%;
+            max-width: 1250px;
+            margin: 35px auto;
+        }
+
+        .intro-card {
+            padding: 25px;
+            margin-bottom: 25px;
+            background: #0b160e;
+            border: 1px solid #245b36;
+            border-radius: 14px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+        }
+
+        .intro-card h2 {
+            color: #00ff66;
+            margin: 0 0 10px;
+            font-size: 21px;
+        }
+
+        .info {
+            color: #afc2b3;
+            line-height: 1.7;
+            margin: 0;
+        }
+
+        .table-heading {
+            color: #eaffef;
+            font-size: 20px;
+            margin: 28px 0 15px;
+        }
+
+        .table-heading::before {
+            content: "";
+            display: inline-block;
+            width: 5px;
+            height: 21px;
+            background: #00ff66;
+            border-radius: 5px;
+            margin-right: 10px;
+            vertical-align: -4px;
+        }
+
+        .table-box {
+            overflow-x: auto;
+            background: #09130c;
+            border: 1px solid #245b36;
+            border-radius: 13px;
+            box-shadow: 0 8px 28px rgba(0, 0, 0, 0.25);
+        }
+
+        table {
+            width: 100%;
+            min-width: 950px;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 17px 15px;
+            text-align: left;
+            border-bottom: 1px solid #1d3825;
+            vertical-align: top;
+            line-height: 1.6;
+        }
+
+        th {
+            background: #112519;
+            color: #00ff66;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            white-space: nowrap;
+        }
+
+        td {
+            color: #dcebe0;
+            font-size: 13px;
+            overflow-wrap: anywhere;
+        }
+
+        tbody tr {
+            transition: background 0.2s;
+        }
+
+        tbody tr:hover {
+            background: rgba(0, 255, 102, 0.045);
+        }
+
+        .status {
+            display: inline-block;
+            padding: 7px 11px;
+            border: 1px solid #39764b;
+            border-radius: 20px;
+            background: #10291a;
+            color: #8dffad;
+            font-size: 12px;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .download-btn {
+            display: inline-block;
+            text-decoration: none;
+            background: #00ff66;
+            color: #031007;
+            padding: 10px 13px;
+            border: 1px solid #00ff66;
+            border-radius: 7px;
+            font-weight: bold;
+            font-size: 12px;
+            white-space: nowrap;
+            transition: 0.25s;
+        }
+
+        .download-btn:hover {
+            background: #06120a;
+            color: #00ff66;
+            box-shadow: 0 0 13px rgba(0, 255, 102, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .empty {
+            text-align: center;
+            padding: 40px 20px;
+            color: #a9bcae;
+            line-height: 1.8;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin: 28px 0;
+        }
+
+        .buttons a {
+            display: inline-block;
+            text-decoration: none;
+            background: #00ff66;
+            color: #031007;
+            padding: 13px 21px;
+            border: 1px solid #00ff66;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: bold;
+            transition: 0.25s;
+        }
+
+        .buttons a:hover {
+            background: #07140b;
+            color: #00ff66;
+            box-shadow: 0 0 15px rgba(0, 255, 102, 0.2);
+            transform: translateY(-2px);
+        }
+
+        footer {
+            text-align: center;
+            color: #6f8876;
+            font-size: 11px;
+            letter-spacing: 1px;
+            padding: 20px 10px;
+            border-top: 1px solid #193522;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 24px;
+            }
+
+            .container {
+                width: 92%;
+                margin: 22px auto;
+            }
+
+            .intro-card {
+                padding: 20px;
+            }
+
+            .intro-card h2 {
+                font-size: 18px;
+            }
+
+            .table-heading {
+                font-size: 18px;
+            }
         }
     </style>
 </head>
 
 <body>
 
-<h2>My Complaint Status</h2>
+<header>
+    <div class="brand">CYBERSHIELD</div>
+    <h1>My Complaint Status</h1>
+    <p>Cyber Crime Complaint Tracking Portal</p>
+</header>
 
-<table>
+<div class="container">
 
-<tr>
-    <th>ID</th>
-    <th>Crime Type</th>
-    <th>Complaint</th>
-    <th>Location</th>
-    <th>Date</th>
-    <th>Status</th>
-</tr>
+    <div class="intro-card">
+        <h2>Track Your Complaint</h2>
+        <p class="info">
+            View your submitted complaints, check their latest status,
+            and download a PDF report whenever you need it.
+        </p>
+    </div>
 
-{% for complaint in complaints %}
-<tr>
-    <td>{{ complaint.id }}</td>
-    <td>{{ complaint.crime_type }}</td>
-    <td>{{ complaint.complaint }}</td>
-    <td>{{ complaint.location }}</td>
-    <td>{{ complaint.complaint_date }}</td>
-    <td>{{ complaint.status }}</td>
-</tr>
-{% endfor %}
+    <h2 class="table-heading">Your Complaint Records</h2>
 
-</table>
+    <div class="table-box">
+        <table>
+            <thead>
+                <tr>
+                    <th>Complaint ID</th>
+                    <th>Crime Type</th>
+                    <th>Complaint Details</th>
+                    <th>Location</th>
+                    <th>Date</th>
+                    <th>Current Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
 
-<div class="back">
-    <a href="/login">Back to Dashboard</a>
+            <tbody>
+                {% for complaint in complaints %}
+                <tr>
+                    <td>#{{ complaint.id }}</td>
+                    <td>{{ complaint.crime_type }}</td>
+                    <td>{{ complaint.complaint }}</td>
+                    <td>{{ complaint.location }}</td>
+                    <td>{{ complaint.complaint_date }}</td>
+
+                    <td>
+                        <span class="status">
+                            {{ complaint.status or 'Pending' }}
+                        </span>
+                    </td>
+
+                    <td>
+                        <a href="{{ url_for('generate_pdf', id=complaint.id) }}"
+                           class="download-btn">
+                            ↓ Download PDF
+                        </a>
+                    </td>
+                </tr>
+
+                {% else %}
+                <tr>
+                    <td colspan="7" class="empty">
+                        No complaints found for your account.
+                        <br>
+                        Submit a complaint first to track its status here.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="buttons">
+        <a href="/dashboard">← Back to Dashboard</a>
+        <a href="/logout">Logout</a>
+    </div>
+
 </div>
+
+<footer>
+    CYBERSHIELD // CYBER CRIME REPORTING PORTAL
+</footer>
 
 </body>
 </html>
+```

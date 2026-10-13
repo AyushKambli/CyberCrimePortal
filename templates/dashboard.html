@@ -1,44 +1,496 @@
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>User Dashboard</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberShield | User Dashboard</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --green: #39ff14;
+            --green-light: #a3ff91;
+            --bg: #050807;
+            --card: #0b110e;
+            --border: #1d3824;
+            --text: #f1f5f2;
+            --muted: #9aa99d;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background:
+                radial-gradient(ellipse at top right, #14291a 0%, transparent 38%),
+                radial-gradient(ellipse at bottom left, #101e14 0%, transparent 35%),
+                var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        a {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .navbar {
+            position: relative;
+            padding: 19px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            background: rgba(5, 9, 6, 0.94);
+            border-bottom: 1px solid #25472b;
+            box-shadow: 0 5px 25px rgba(57, 255, 20, 0.05);
+        }
+
+        .brand {
+            font-size: 25px;
+            font-weight: 900;
+            letter-spacing: 0.5px;
+        }
+
+        .brand span {
+            color: var(--green);
+            text-shadow: 0 0 12px rgba(57, 255, 20, 0.45);
+        }
+
+        .navbar p {
+            color: var(--muted);
+            margin-top: 6px;
+            font-size: 12px;
+            letter-spacing: 1px;
+        }
+
+        .logout {
+            text-decoration: none;
+            color: var(--green-light);
+            border: 1px solid #3b7c35;
+            background: #101b12;
+            padding: 11px 19px;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: 0.25s;
+        }
+
+        .logout:hover {
+            background: var(--green);
+            color: #061006;
+            box-shadow: 0 0 20px rgba(57, 255, 20, 0.35);
+            transform: translateY(-2px);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1150px;
+            margin: 35px auto;
+        }
+
+        .welcome {
+            position: relative;
+            overflow: hidden;
+            padding: 38px;
+            border-radius: 18px;
+            border: 1px solid #315b35;
+            background:
+                linear-gradient(120deg, rgba(18, 40, 22, 0.98), rgba(7, 15, 9, 0.97));
+            box-shadow:
+                0 12px 35px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.04),
+                0 0 22px rgba(57, 255, 20, 0.05);
+        }
+
+        .welcome::after {
+            content: "CYBERSECURITY";
+            position: absolute;
+            right: -8px;
+            bottom: -12px;
+            font-size: clamp(35px, 7vw, 85px);
+            font-weight: 900;
+            letter-spacing: 4px;
+            color: rgba(57, 255, 20, 0.035);
+            pointer-events: none;
+        }
+
+        .tag {
+            display: inline-block;
+            color: var(--green);
+            background: rgba(57, 255, 20, 0.07);
+            border: 1px solid rgba(57, 255, 20, 0.22);
+            padding: 7px 12px;
+            border-radius: 5px;
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .welcome h1 {
+            margin: 20px 0 12px;
+            font-size: clamp(25px, 4vw, 36px);
+            line-height: 1.25;
+        }
+
+        .welcome h1 span {
+            color: var(--green);
+            text-shadow: 0 0 18px rgba(57, 255, 20, 0.2);
+        }
+
+        .welcome p {
+            color: #b1c0b4;
+            max-width: 650px;
+            line-height: 1.8;
+            font-size: 14px;
+        }
+
+        .message {
+            background: #102014;
+            color: #a7ff9c;
+            border: 1px solid #367c39;
+            padding: 14px 18px;
+            border-radius: 9px;
+            margin-top: 20px;
+            box-shadow: 0 0 16px rgba(57, 255, 20, 0.06);
+        }
+
+        .section-title {
+            margin: 34px 0 19px;
+            font-size: 21px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title::before {
+            content: "";
+            width: 4px;
+            height: 23px;
+            border-radius: 5px;
+            background: var(--green);
+            box-shadow: 0 0 12px rgba(57, 255, 20, 0.55);
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 22px;
+        }
+
+        .stats-cards {
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+        }
+
+        .card {
+            position: relative;
+            min-width: 0;
+            padding: 25px;
+            border-radius: 15px;
+            border: 1px solid var(--border);
+            background: linear-gradient(145deg, #101812, #090e0a);
+            box-shadow:
+                0 9px 22px rgba(0, 0, 0, 0.28),
+                inset 0 1px 0 rgba(255, 255, 255, 0.025);
+            transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            border-color: #4b9f40;
+            box-shadow:
+                0 14px 30px rgba(0, 0, 0, 0.4),
+                0 0 20px rgba(57, 255, 20, 0.08);
+        }
+
+        .icon {
+            width: 51px;
+            height: 51px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 13px;
+            background: linear-gradient(145deg, #1a3020, #0d190f);
+            border: 1px solid #315c35;
+            font-size: 25px;
+            margin-bottom: 19px;
+            box-shadow:
+                4px 4px 9px rgba(0, 0, 0, 0.4),
+                inset 1px 1px 3px rgba(255, 255, 255, 0.04);
+        }
+
+        .card h3 {
+            margin-bottom: 10px;
+            font-size: 17px;
+            line-height: 1.5;
+            color: #f1f5f2;
+        }
+
+        .card p {
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        .stat-card {
+            overflow: hidden;
+            border-top: 2px solid var(--green);
+        }
+
+        .stat-card::after {
+            content: "";
+            position: absolute;
+            width: 85px;
+            height: 85px;
+            right: -42px;
+            bottom: -42px;
+            border: 1px solid rgba(57, 255, 20, 0.14);
+            border-radius: 50%;
+            box-shadow: 0 0 0 12px rgba(57, 255, 20, 0.025);
+            pointer-events: none;
+        }
+
+        .stat-card .icon {
+            width: 43px;
+            height: 43px;
+            font-size: 21px;
+            margin-bottom: 15px;
+        }
+
+        .stat-card h3 {
+            font-size: 14px;
+            min-height: 42px;
+        }
+
+        .stat-card p.stat-number {
+            color: var(--green);
+            font-size: 35px;
+            font-weight: 900;
+            margin-top: 8px;
+            text-shadow: 0 0 17px rgba(57, 255, 20, 0.17);
+        }
+
+        .action-btn {
+            display: inline-block;
+            margin-top: 16px;
+            padding: 12px 17px;
+            border: 1px solid var(--green);
+            border-radius: 7px;
+            background: var(--green);
+            color: #061006;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 800;
+            transition: 0.25s;
+        }
+
+        .action-btn:hover {
+            background: transparent;
+            color: var(--green);
+            box-shadow: 0 0 17px rgba(57, 255, 20, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .info-banner {
+            margin-top: 27px;
+            padding: 21px 23px;
+            border: 1px solid #294b2d;
+            border-left: 4px solid var(--green);
+            border-radius: 10px;
+            background: linear-gradient(110deg, #101b12, #0a100b);
+            color: #b5c4b8;
+            line-height: 1.9;
+            font-size: 13px;
+        }
+
+        .info-banner strong {
+            color: var(--green);
+            font-size: 14px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 24px 15px;
+            color: #738176;
+            font-size: 12px;
+            border-top: 1px solid #1b2c1e;
+            margin-top: 42px;
+            background: rgba(4, 7, 5, 0.6);
+        }
+
+        @media (max-width: 900px) {
+            .stats-cards {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 600px) {
+            .navbar {
+                padding: 17px 5%;
+            }
+
+            .brand {
+                font-size: 22px;
+            }
+
+            .container {
+                width: 92%;
+                margin: 24px auto;
+            }
+
+            .welcome {
+                padding: 25px 21px;
+            }
+
+            .welcome h1 {
+                margin-top: 17px;
+            }
+
+            .cards,
+            .stats-cards {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .card {
+                padding: 22px;
+            }
+
+            .section-title {
+                font-size: 19px;
+                margin-top: 28px;
+            }
+
+            .stat-card h3 {
+                min-height: auto;
+            }
+
+            .info-banner {
+                padding: 17px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                transition: none !important;
+            }
+        }
+    </style>
 </head>
 
-<body style="font-family:Arial; background:#f4f4f4;">
+<body>
 
-<div style="width:600px; margin:50px auto; background:white; padding:30px; border-radius:10px; text-align:center;">
+<header class="navbar">
+    <div>
+        <div class="brand">🛡️ Cyber<span>Shield</span></div>
+        <p>CYBER CRIME COMPLAINT PORTAL</p>
+    </div>
 
-    <h1>Welcome to Cyber Crime Complaint Portal</h1>
+    <a href="/logout" class="logout">Logout ↗</a>
+</header>
 
-    <h3>Welcome {{ username }}</h3>
+<main class="container">
+
+    <section class="welcome">
+        <div class="tag">● Secure User Dashboard</div>
+
+        <h1>Welcome, <span>{{ username }}</span>! 👋</h1>
+
+        <p>
+            Your safety matters. Report cybercrime incidents and track
+            the progress of your complaints from one secure place.
+        </p>
+    </section>
 
     {% if message %}
-    <p style="color:green; font-weight:bold;">
-        {{ message }}
-    </p>
+    <div class="message">
+        ✓ {{ message }}
+    </div>
     {% endif %}
 
-    <br>
+    <h2 class="section-title">Your Complaint Overview</h2>
 
-    <a href="/complaint">
-        <button style="padding:10px 20px;">File Complaint</button>
-    </a>
+    <section class="cards stats-cards">
 
-    <br><br>
+        <div class="card stat-card">
+            <div class="icon">📝</div>
+            <h3>Total Complaints</h3>
+            <p class="stat-number">{{ total_complaints }}</p>
+        </div>
 
-    <a href="/status">
-        <button style="padding:10px 20px;">View Complaint Status</button>
-    </a>
+        <div class="card stat-card">
+            <div class="icon">⏳</div>
+            <h3>Pending Complaints</h3>
+            <p class="stat-number">{{ pending_complaints }}</p>
+        </div>
 
-    <br><br>
+        <div class="card stat-card">
+            <div class="icon">🔄</div>
+            <h3>In Progress Complaints</h3>
+            <p class="stat-number">{{ in_progress_complaints }}</p>
+        </div>
 
-    <a href="/logout">
-        <button style="padding:10px 20px; background:red; color:white; border:none;">
-            Logout
-        </button>
-    </a>
+        <div class="card stat-card">
+            <div class="icon">✅</div>
+            <h3>Resolved Complaints</h3>
+            <p class="stat-number">{{ resolved_complaints }}</p>
+        </div>
 
-</div>
+    </section>
+
+    <h2 class="section-title">What Would You Like to Do?</h2>
+
+    <section class="cards">
+
+        <div class="card">
+            <div class="icon">📝</div>
+
+            <h3>File a Complaint</h3>
+
+            <p>
+                Report online fraud, cyberbullying, account hacking,
+                or other cybercrime incidents through the portal.
+            </p>
+
+            <a href="/complaint" class="action-btn">
+                File Complaint →
+            </a>
+        </div>
+
+        <div class="card">
+            <div class="icon">📊</div>
+
+            <h3>Track Complaint Status</h3>
+
+            <p>
+                Check your submitted complaint and see whether it is
+                pending, in progress, or resolved.
+            </p>
+
+            <a href="/status" class="action-btn">
+                View Status →
+            </a>
+        </div>
+
+    </section>
+
+    <div class="info-banner">
+        <strong>🔐 Stay Cyber Safe</strong><br>
+        Never share your passwords, OTPs, or banking PINs with anyone.
+        Keep evidence of suspicious online activity when reporting an incident.
+    </div>
+
+</main>
+
+<footer>
+    © 2026 CyberShield | TYCS Cyber Crime Complaint Portal
+</footer>
 
 </body>
 </html>
+```
