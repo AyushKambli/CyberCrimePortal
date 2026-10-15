@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+venv/
+.venv/
+.env
+
+# Secret keys and credentials
+.cybershield_secret_key
+
+# Uploaded complaint evidence
+static/uploads/*
+
+# Keep the uploads folder structure
+!static/uploads/.gitkeep
+
+# VS Code
+.vscode/
+
+# Operating system files
+.DS_Store
+Thumbs.db

@@ -1,31 +1,343 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>User Login</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberShield | User Login</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --green: #39ff14;
+            --green-light: #a3ff91;
+            --bg: #050807;
+            --muted: #9aa99d;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            background:
+                radial-gradient(ellipse at top, #142a18, transparent 55%),
+                radial-gradient(circle at bottom right, #101d12, transparent 40%),
+                var(--bg);
+            color: #f1f5f2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 25px;
+            overflow-x: hidden;
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 420px;
+            animation: appear 0.65s ease-out;
+        }
+
+        @keyframes appear {
+            from {
+                opacity: 0;
+                transform: translateY(18px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .brand {
+            text-align: center;
+            margin-bottom: 26px;
+        }
+
+        .brand-icon {
+            width: 76px;
+            height: 76px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            font-size: 39px;
+            border-radius: 23px;
+            border: 1px solid #43873b;
+            background: linear-gradient(145deg, #172a19, #080e09);
+            box-shadow:
+                0 0 28px rgba(57, 255, 20, 0.13),
+                7px 7px 15px rgba(0, 0, 0, 0.4),
+                inset 1px 1px 4px rgba(255, 255, 255, 0.06);
+            animation: glow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                box-shadow: 0 0 15px rgba(57, 255, 20, 0.1);
+            }
+            to {
+                box-shadow: 0 0 30px rgba(57, 255, 20, 0.22);
+            }
+        }
+
+        .brand h1 {
+            font-size: 32px;
+            letter-spacing: 1px;
+            font-weight: 900;
+        }
+
+        .brand h1 span {
+            color: var(--green);
+            text-shadow: 0 0 15px rgba(57, 255, 20, 0.35);
+        }
+
+        .brand p {
+            color: var(--muted);
+            font-size: 13px;
+            margin-top: 9px;
+            letter-spacing: 1px;
+        }
+
+        .login-card {
+            padding: 32px;
+            border: 1px solid #2c4b30;
+            border-radius: 19px;
+            background: linear-gradient(145deg, rgba(17, 27, 19, 0.97), rgba(7, 12, 8, 0.98));
+            box-shadow:
+                0 18px 45px rgba(0, 0, 0, 0.45),
+                0 0 25px rgba(57, 255, 20, 0.045),
+                inset 0 1px 0 rgba(255, 255, 255, 0.04);
+        }
+
+        .secure-tag {
+            display: inline-block;
+            padding: 6px 10px;
+            color: var(--green);
+            background: rgba(57, 255, 20, 0.07);
+            border: 1px solid rgba(57, 255, 20, 0.2);
+            border-radius: 5px;
+            font-size: 10px;
+            font-weight: bold;
+            letter-spacing: 1.5px;
+            margin-bottom: 17px;
+        }
+
+        .login-card h2 {
+            font-size: 25px;
+            margin-bottom: 9px;
+        }
+
+        .subtitle {
+            color: var(--muted);
+            font-size: 13px;
+            margin-bottom: 27px;
+            line-height: 1.7;
+        }
+
+        .form-group {
+            margin-bottom: 21px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 9px;
+            font-size: 13px;
+            font-weight: bold;
+            color: #dce7de;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px;
+            border-radius: 9px;
+            border: 1px solid #2b4430;
+            background: #080e09;
+            color: #f1f5f2;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.25s, box-shadow 0.25s;
+        }
+
+        input:focus {
+            border-color: var(--green);
+            box-shadow: 0 0 0 3px rgba(57, 255, 20, 0.09);
+        }
+
+        input::placeholder {
+            color: #6f8072;
+        }
+
+        .login-btn {
+            width: 100%;
+            margin-top: 7px;
+            padding: 14px;
+            border: 1px solid var(--green);
+            border-radius: 9px;
+            background: var(--green);
+            color: #061006;
+            font-size: 15px;
+            font-weight: 900;
+            cursor: pointer;
+            transition: 0.25s;
+            box-shadow: 0 5px 0 #1b7c12, 0 0 18px rgba(57, 255, 20, 0.08);
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 0 #1b7c12, 0 0 24px rgba(57, 255, 20, 0.2);
+            filter: brightness(1.05);
+        }
+
+        .login-btn:active {
+            transform: translateY(3px);
+            box-shadow: 0 2px 0 #1b7c12;
+        }
+
+        .register-link {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 13px;
+            color: #a9b8ac;
+            line-height: 1.8;
+        }
+
+        .register-link a {
+            color: var(--green);
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .register-link a:hover {
+            text-decoration: underline;
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 24px;
+            color: #93a396;
+            text-decoration: none;
+            font-size: 13px;
+            transition: color 0.2s;
+        }
+
+        .back-link:hover {
+            color: var(--green);
+        }
+
+        .error-message {
+            background: #241211;
+            color: #ffaaa0;
+            border: 1px solid #78352d;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 19px;
+            font-size: 13px;
+            line-height: 1.6;
+            overflow-wrap: anywhere;
+        }
+
+        .bottom-note {
+            text-align: center;
+            color: #637367;
+            font-size: 10px;
+            letter-spacing: 1px;
+            margin-top: 24px;
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 20px 16px;
+            }
+
+            .login-card {
+                padding: 25px 21px;
+            }
+
+            .brand h1 {
+                font-size: 28px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-<div class="login-box">
+<div class="login-container">
 
-    <h2>User Login</h2>
+    <div class="brand">
+        <div class="brand-icon">🛡️</div>
+        <h1>Cyber<span>Shield</span></h1>
+        <p>CYBER CRIME COMPLAINT PORTAL</p>
+    </div>
 
-    <form method="POST">
+    <div class="login-card">
+        <div class="secure-tag">● SECURE USER ACCESS</div>
 
-        <input type="email" name="email" placeholder="Enter Email" required>
+        <h2>Welcome Back</h2>
+        <p class="subtitle">
+            Login to your account and manage your cybercrime complaints.
+        </p>
 
-        <input type="password" name="password" placeholder="Enter Password" required>
+        {% if message %}
+        <div class="error-message">{{ message }}</div>
+        {% endif %}
 
-        <button type="submit">Login</button>
+        <form action="/login" method="POST" autocomplete="off">
 
-    </form>
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="Enter your registered email"
+                    value=""
+                    autocomplete="off"
+                    autocapitalize="none"
+                    spellcheck="false"
+                    required>
+            </div>
 
-    <br>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Enter your password"
+                    value=""
+                    autocomplete="new-password"
+                    required>
+            </div>
 
-    <p>Don't have an account?</p>
+            <button type="submit" class="login-btn">
+                Login Securely →
+            </button>
 
-    <a href="/register">Register Here</a>
+        </form>
+
+        <div class="register-link">
+            Don't have an account?
+            <a href="/register">Create Account</a>
+        </div>
+    </div>
+
+    <a href="/" class="back-link">← Back to Home</a>
+
+    <div class="bottom-note">
+        CYBERSHIELD • YOUR DIGITAL SAFETY MATTERS
+    </div>
 
 </div>
 
