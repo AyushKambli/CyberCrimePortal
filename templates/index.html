@@ -1,103 +1,875 @@
-<!DOCTYPE html><html lang="en">
+
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CyberShield | Secure Digital World</title>
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-:root{--green:#00ff88;--bg:#050806;--panel:#0c120e;--muted:#9aa99f;--border:#1c3828}
-body{font-family:Arial,sans-serif;background:var(--bg);color:#f2fff6}
-header{height:auto;min-height:76px;padding:20px 7%;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;background:#080d09;border-bottom:1px solid var(--border)}
-.logo{font-size:25px;font-weight:800;color:var(--green);letter-spacing:1px}
-nav{display:flex;gap:22px;flex-wrap:wrap}
-nav a{color:#d4e3d8;text-decoration:none;font-size:14px}
-nav a:hover{color:var(--green)}
-.hero{min-height:590px;padding:85px 7%;display:grid;grid-template-columns:1.4fr .8fr;gap:45px;align-items:center;background:radial-gradient(ellipse at 80% 35%,#10331e 0%,#071009 35%,#050806 72%)}
-.tag{display:inline-block;color:var(--green);border:1px solid #17673b;background:#0b2113;padding:9px 13px;border-radius:5px;font-size:12px;letter-spacing:2px;margin-bottom:24px}
-h1{font-size:clamp(38px,5.5vw,65px);line-height:1.1;margin-bottom:22px}
-h1 span{color:var(--green);text-shadow:0 0 22px #00ff8844}
-.intro{color:var(--muted);font-size:16px;line-height:1.8;max-width:580px}
-.actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:30px}
-.btn{padding:14px 21px;border-radius:5px;text-decoration:none;font-size:14px;font-weight:bold;display:inline-block}
-.primary{background:var(--green);color:#041008;box-shadow:0 0 20px #00ff8822}
-.primary:hover{box-shadow:0 0 25px #00ff8866}
-.secondary{border:1px solid #31543c;color:#eaffef}
-.terminal{background:#080f0a;border:1px solid #1d6038;border-radius:12px;padding:24px;box-shadow:0 0 35px #00ff8810}
-.terminal-head{display:flex;justify-content:space-between;align-items:center;padding-bottom:18px;border-bottom:1px solid #203727;color:var(--green);font-size:12px;letter-spacing:1px}
-.dot{width:8px;height:8px;border-radius:50%;background:var(--green);display:inline-block;margin-right:7px;box-shadow:0 0 10px var(--green)}
-.shield{font-size:75px;text-align:center;padding:25px 0;color:var(--green);text-shadow:0 0 35px #00ff8855}
-.line{display:flex;justify-content:space-between;padding:13px 0;border-top:1px solid #14251a;font-size:13px}
-.good{color:var(--green)}
-.section{padding:65px 7%}
-.section-title{text-align:center;font-size:30px;margin-bottom:12px}
-.section-title span{color:var(--green)}
-.section-sub{text-align:center;color:var(--muted);line-height:1.7;margin-bottom:35px}
-.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.card{background:var(--panel);border:1px solid var(--border);border-radius:9px;padding:27px;transition:.2s}
-.card:hover{border-color:var(--green);transform:translateY(-3px);box-shadow:0 0 20px #00ff8810}
-.symbol{font-size:27px;color:var(--green);margin-bottom:18px}
-.card h3{margin-bottom:12px;font-size:18px}
-.card p{color:var(--muted);font-size:14px;line-height:1.8}
-.card a{display:inline-block;margin-top:18px;color:var(--green);text-decoration:none;font-size:13px}
-.notice{margin:0 7% 60px;border:1px solid #235337;background:#0a170e;padding:24px;border-radius:8px;color:#b8cbbd;line-height:1.7;font-size:14px}
-.notice strong{color:var(--green)}
-footer{text-align:center;border-top:1px solid var(--border);padding:27px 15px;color:#829388;font-size:12px;line-height:1.8}
-@media(max-width:800px){.hero{grid-template-columns:1fr;padding-top:65px;padding-bottom:65px}.terminal{max-width:500px;width:100%}.cards{grid-template-columns:1fr}.section{padding:50px 6%}}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberShield | Cyber Crime Complaint Portal</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --green: #00ff88;
+            --green-dark: #00c96b;
+            --black: #030604;
+            --panel: #09130d;
+            --border: #16452c;
+            --text: #e9fff1;
+            --muted: #9bb5a4;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background:
+                radial-gradient(ellipse at 80% 20%, #0a2517 0%, transparent 35%),
+                radial-gradient(ellipse at 10% 65%, #07170e 0%, transparent 30%),
+                var(--black);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        /* NAVIGATION */
+
+        .home-navbar {
+            min-height: 82px;
+            padding: 16px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 25px;
+            flex-wrap: wrap;
+            background: rgba(3, 7, 4, 0.94);
+            border-bottom: 1px solid var(--border);
+            box-shadow: 0 5px 25px rgba(0, 255, 136, 0.04);
+        }
+
+        .home-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            font-size: 25px;
+            font-weight: 800;
+            letter-spacing: 0.3px;
+        }
+
+        .home-brand-icon {
+            font-size: 31px;
+            filter: drop-shadow(0 0 9px rgba(0, 255, 136, 0.45));
+        }
+
+        .home-accent {
+            color: var(--green);
+            text-shadow: 0 0 13px rgba(0, 255, 136, 0.25);
+        }
+
+        .home-brand small {
+            display: block;
+            margin-top: 5px;
+            font-size: 9px;
+            color: var(--muted);
+            letter-spacing: 2px;
+            font-weight: normal;
+        }
+
+        .home-nav-links {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+
+        .home-nav-links a {
+            color: #b6cbbb;
+            font-size: 13px;
+            transition: 0.25s;
+        }
+
+        .home-nav-links a:hover,
+        .home-nav-links .home-active {
+            color: var(--green);
+        }
+
+        .home-nav-links .home-admin-link {
+            padding: 11px 16px;
+            border: 1px solid var(--green-dark);
+            border-radius: 6px;
+            color: var(--green);
+            background: #07170d;
+        }
+
+        .home-nav-links .home-admin-link:hover {
+            background: var(--green);
+            color: #001508;
+            box-shadow: 0 0 18px rgba(0, 255, 136, 0.24);
+        }
+
+        /* HERO SECTION */
+
+        .home-hero {
+            max-width: 1450px;
+            min-height: 590px;
+            margin: auto;
+            padding: 75px 6%;
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            align-items: center;
+            gap: 45px;
+        }
+
+        .home-hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .home-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            border: 1px solid #1c5837;
+            background: rgba(0, 255, 136, 0.045);
+            color: var(--green);
+            border-radius: 30px;
+            padding: 10px 15px;
+            font-size: 10px;
+            letter-spacing: 1.4px;
+            margin-bottom: 26px;
+        }
+
+        .home-status-dot {
+            height: 7px;
+            width: 7px;
+            background: var(--green);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--green);
+        }
+
+        .home-hero h1 {
+            font-size: clamp(36px, 4.3vw, 61px);
+            line-height: 1.13;
+            letter-spacing: -1.8px;
+            margin-bottom: 23px;
+        }
+
+        .home-hero h1 span {
+            color: var(--green);
+            text-shadow: 0 0 24px rgba(0, 255, 136, 0.12);
+        }
+
+        .home-description {
+            max-width: 540px;
+            color: var(--muted);
+            font-size: 15px;
+            line-height: 1.9;
+            margin-bottom: 29px;
+        }
+
+        .home-actions {
+            display: flex;
+            gap: 13px;
+            flex-wrap: wrap;
+            margin-bottom: 27px;
+        }
+
+        .home-primary-btn,
+        .home-secondary-btn {
+            min-height: 47px;
+            padding: 14px 20px;
+            border-radius: 7px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            font-size: 13px;
+            font-weight: bold;
+            transition: 0.25s;
+        }
+
+        .home-primary-btn {
+            color: #001408;
+            background: var(--green);
+            box-shadow:
+                0 5px 0 #08763f,
+                0 0 22px rgba(0, 255, 136, 0.12);
+        }
+
+        .home-primary-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 0 #08763f,
+                        0 0 25px rgba(0, 255, 136, 0.3);
+        }
+
+        .home-primary-btn span {
+            font-size: 19px;
+        }
+
+        .home-secondary-btn {
+            color: var(--text);
+            border: 1px solid #28543a;
+            background: #0a160e;
+        }
+
+        .home-secondary-btn:hover {
+            border-color: var(--green);
+            color: var(--green);
+        }
+
+        .home-trust-note {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            color: #9ab6a4;
+            font-size: 11px;
+        }
+
+        .home-trust-note span:first-child,
+        .home-trust-note span:nth-of-type(2) {
+            color: var(--green);
+        }
+
+        .home-note-divider {
+            color: #476653;
+            padding: 0 3px;
+        }
+
+        /* 3D CYBERSECURITY VISUAL */
+
+        .home-visual {
+            position: relative;
+            min-height: 410px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            perspective: 1000px;
+        }
+
+        .home-glow {
+            position: absolute;
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            background: rgba(0, 255, 136, 0.12);
+            filter: blur(75px);
+        }
+
+        .home-shield-card {
+            position: relative;
+            z-index: 1;
+            width: min(100%, 365px);
+            padding: 24px;
+            border: 1px solid #247449;
+            border-radius: 16px;
+            background: linear-gradient(145deg, #11271a, #050b07 65%);
+            box-shadow:
+                inset 0 1px 0 rgba(255, 255, 255, 0.05),
+                0 10px 0 #030704,
+                0 17px 45px rgba(0, 0, 0, 0.65),
+                0 0 30px rgba(0, 255, 136, 0.07);
+            transform: rotateY(-5deg) rotateX(3deg);
+            animation: floatCard 5s ease-in-out infinite;
+        }
+
+        .home-shield-top {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--green);
+            font-size: 10px;
+            letter-spacing: 1.3px;
+        }
+
+        .home-mini-dot {
+            height: 7px;
+            width: 7px;
+            background: var(--green);
+            border-radius: 50%;
+            box-shadow: 0 0 9px var(--green);
+        }
+
+        .home-live {
+            margin-left: auto;
+            padding: 5px 8px;
+            border: 1px solid #245d3c;
+            border-radius: 4px;
+            font-size: 9px;
+        }
+
+        .home-shield-art {
+            min-height: 205px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 115px;
+            margin: 17px 0;
+            filter: drop-shadow(0 0 18px rgba(0, 255, 136, 0.4));
+        }
+
+        .home-shield-title {
+            text-align: center;
+            font-size: 21px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .home-shield-card > p {
+            text-align: center;
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.7;
+        }
+
+        .home-security-line {
+            height: 4px;
+            background: #163322;
+            border-radius: 5px;
+            margin: 23px 0 17px;
+            overflow: hidden;
+        }
+
+        .home-security-line span {
+            display: block;
+            height: 100%;
+            width: 70%;
+            background: var(--green);
+            box-shadow: 0 0 12px var(--green);
+        }
+
+        .home-security-footer {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            color: #739481;
+            font-size: 9px;
+            letter-spacing: 1px;
+        }
+
+        .home-float-card {
+            position: absolute;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 16px;
+            background: rgba(6, 17, 10, 0.96);
+            border: 1px solid #286440;
+            border-radius: 9px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+            animation: floatCard 4s ease-in-out infinite;
+        }
+
+        .home-float-top {
+            top: 37px;
+            right: -7px;
+        }
+
+        .home-float-bottom {
+            bottom: 30px;
+            left: -15px;
+            animation-delay: -2s;
+        }
+
+        .home-float-icon {
+            font-size: 24px;
+        }
+
+        .home-float-card strong {
+            display: block;
+            color: #e4fff0;
+            font-size: 11px;
+            margin-bottom: 5px;
+        }
+
+        .home-float-card small {
+            display: block;
+            color: #8ba998;
+            font-size: 10px;
+        }
+
+        @keyframes floatCard {
+            0%, 100% {
+                translate: 0 0;
+            }
+            50% {
+                translate: 0 -7px;
+            }
+        }
+
+        /* FEATURES */
+
+        .home-features {
+            padding: 75px 6%;
+            border-top: 1px solid #102b1b;
+            background: rgba(5, 12, 7, 0.72);
+        }
+
+        .home-section-heading {
+            text-align: center;
+            max-width: 650px;
+            margin: 0 auto 42px;
+        }
+
+        .home-section-heading > span,
+        .home-awareness-label {
+            color: var(--green);
+            font-size: 10px;
+            letter-spacing: 2px;
+            font-weight: bold;
+        }
+
+        .home-section-heading h2 {
+            margin: 14px 0;
+            font-size: clamp(25px, 3vw, 35px);
+        }
+
+        .home-section-heading p {
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        .home-feature-grid {
+            max-width: 1200px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 22px;
+        }
+
+        .home-feature-card {
+            padding: 27px;
+            border: 1px solid #19452d;
+            border-radius: 10px;
+            background: linear-gradient(145deg, #0c1b11, #050a07);
+            box-shadow: 0 7px 0 #020503;
+            transition: 0.25s;
+        }
+
+        .home-feature-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--green);
+            box-shadow: 0 7px 0 #020503,
+                        0 0 22px rgba(0, 255, 136, 0.08);
+        }
+
+        .home-feature-icon {
+            width: 52px;
+            height: 52px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #102b1b;
+            border: 1px solid #1f5938;
+            border-radius: 9px;
+            font-size: 24px;
+            margin-bottom: 23px;
+        }
+
+        .home-feature-card h3 {
+            font-size: 17px;
+            margin-bottom: 12px;
+        }
+
+        .home-feature-card p {
+            min-height: 66px;
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.8;
+            margin-bottom: 19px;
+        }
+
+        .home-feature-card a {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            color: var(--green);
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .home-feature-card a:hover {
+            text-shadow: 0 0 10px rgba(0, 255, 136, 0.4);
+        }
+
+        /* AWARENESS */
+
+        .home-awareness {
+            max-width: 1200px;
+            margin: 70px auto;
+            width: 88%;
+            padding: 35px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 25px;
+            background: linear-gradient(110deg, #0c2114, #050b07);
+            border: 1px solid #1d5535;
+            border-radius: 12px;
+            box-shadow: 0 8px 0 #020503;
+        }
+
+        .home-awareness h2 {
+            margin: 12px 0;
+            font-size: 27px;
+        }
+
+        .home-awareness p {
+            max-width: 650px;
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        .home-awareness-icon {
+            font-size: 65px;
+            filter: drop-shadow(0 0 15px rgba(0, 255, 136, 0.2));
+        }
+
+        /* FOOTER */
+
+        .home-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            flex-wrap: wrap;
+            padding: 25px 6%;
+            background: #020503;
+            border-top: 1px solid #143321;
+        }
+
+        .home-footer-brand {
+            color: var(--green);
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        .home-footer p {
+            color: #759080;
+            font-size: 11px;
+            line-height: 1.6;
+        }
+
+        .home-footer > a:last-child {
+            color: #a5c5b1;
+            font-size: 12px;
+        }
+
+        .home-footer > a:last-child:hover {
+            color: var(--green);
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 900px) {
+            .home-navbar {
+                padding: 17px 4%;
+            }
+
+            .home-nav-links {
+                gap: 16px;
+            }
+
+            .home-hero {
+                grid-template-columns: 1fr;
+                padding: 60px 6%;
+                gap: 35px;
+            }
+
+            .home-hero-content {
+                max-width: 700px;
+            }
+
+            .home-visual {
+                min-height: 410px;
+            }
+
+            .home-feature-grid {
+                grid-template-columns: 1fr;
+                max-width: 600px;
+            }
+
+            .home-feature-card p {
+                min-height: auto;
+            }
+        }
+
+        @media (max-width: 520px) {
+            .home-navbar {
+                justify-content: center;
+            }
+
+            .home-brand {
+                margin-right: auto;
+                font-size: 22px;
+            }
+
+            .home-nav-links {
+                width: 100%;
+                gap: 12px 18px;
+                justify-content: flex-start;
+            }
+
+            .home-nav-links a {
+                font-size: 12px;
+            }
+
+            .home-hero {
+                padding: 45px 5%;
+            }
+
+            .home-hero h1 {
+                font-size: 38px;
+                letter-spacing: -1px;
+            }
+
+            .home-label {
+                font-size: 9px;
+                letter-spacing: 0.8px;
+            }
+
+            .home-description {
+                font-size: 13px;
+            }
+
+            .home-visual {
+                min-height: 350px;
+            }
+
+            .home-shield-card {
+                padding: 18px;
+            }
+
+            .home-shield-art {
+                min-height: 155px;
+                font-size: 85px;
+            }
+
+            .home-float-card {
+                padding: 10px;
+                gap: 8px;
+            }
+
+            .home-float-top {
+                right: -2px;
+                top: 15px;
+            }
+
+            .home-float-bottom {
+                left: -2px;
+                bottom: 12px;
+            }
+
+            .home-features {
+                padding: 55px 5%;
+            }
+
+            .home-awareness {
+                margin: 45px auto;
+                padding: 25px;
+                width: 90%;
+            }
+
+            .home-awareness h2 {
+                font-size: 23px;
+            }
+
+            .home-awareness-icon {
+                font-size: 38px;
+            }
+
+            .home-footer {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation: none !important;
+                scroll-behavior: auto !important;
+                transition: none !important;
+            }
+        }
+    </style>
 </head>
-<body>
-<header>
-  <div class="logo">⬡ CyberShield</div>
-  <nav>
-    <a href="/">Home</a>
-    <a href="/register">Register</a>
-    <a href="/login">User Login</a>
-    <a href="/status">Track Complaint</a>
-    <a href="/admin">Admin</a>
-  </nav>
-</header><main>
-<section class="hero">
-  <div>
-    <div class="tag">● DIGITAL SECURITY & AWARENESS</div>
-    <h1>Secure Your World.<br><span>Stop Cyber Crime.</span></h1>
-    <p class="intro">A digital platform designed to help users submit cyber crime complaints and monitor their status. Take the first step toward a safer digital world.</p>
-    <div class="actions">
-      <a class="btn primary" href="/register">＋ File a Complaint</a>
-      <a class="btn secondary" href="/login">Access Your Account →</a>
-    </div>
-  </div>
-  <div class="terminal">
-    <div class="terminal-head"><span>CYBERSHIELD / SYSTEM</span><span><i class="dot"></i>ONLINE</span></div>
-    <div class="shield">⬡</div>
-    <div class="line"><span>Portal Status</span><strong class="good">ACTIVE</strong></div>
-    <div class="line"><span>Complaint Tracking</span><strong class="good">ENABLED</strong></div>
-    <div class="line"><span>Admin Management</span><strong class="good">ENABLED</strong></div>
-    <div class="line"><span>Access</span><strong>SECURE LOGIN</strong></div>
-  </div>
-</section><section class="section">
-  <h2 class="section-title">Your Safety. <span>Our Priority.</span></h2>
-  <p class="section-sub">Simple tools to report and manage cyber crime complaints.</p>
-  <div class="cards">
-    <article class="card">
-      <div class="symbol">⌁</div>
-      <h3>Report Cyber Crime</h3>
-      <p>Submit complaint details through the portal and provide relevant information for review.</p>
-      <a href="/complaint">Submit a complaint →</a>
-    </article>
-    <article class="card">
-      <div class="symbol">◎</div>
-      <h3>Track Your Case</h3>
-      <p>Sign in to view the status of complaints associated with your account.</p>
-      <a href="/status">Check status →</a>
-    </article>
-    <article class="card">
-      <div class="symbol">⌘</div>
-      <h3>Case Management</h3>
-      <p>Authorized administrators can review reports, update case status, and manage records.</p>
-      <a href="/admin">Admin access →</a>
-    </article>
-  </div>
-</section><div class="notice"><strong>Important:</strong> CyberShield is an academic project portal, not an official government reporting service. For real cybercrime incidents in India, use the official National Cyber Crime Reporting Portal at cybercrime.gov.in.</div>
-</main><footer>CYBERSHIELD © 2026 · CYBER CRIME COMPLAINT PORTAL<br>Academic Project · Promoting a safer digital environment</footer>
+
+<body class="home-page">
+
+<header class="home-navbar">
+    <a href="/" class="home-brand">
+        <span class="home-brand-icon">🛡️</span>
+        <span>
+            Cyber<span class="home-accent">Shield</span>
+            <small>CYBER CRIME COMPLAINT PORTAL</small>
+        </span>
+    </a>
+
+    <nav class="home-nav-links">
+        <a href="/" class="home-active">Home</a>
+        <a href="/register">Register</a>
+        <a href="/login">User Login</a>
+        <a href="/admin" class="home-admin-link">Admin Login ↗</a>
+    </nav>
+</header>
+
+<main>
+    <section class="home-hero">
+        <div class="home-hero-content">
+            <div class="home-label">
+                <span class="home-status-dot"></span>
+                DIGITAL SAFETY &amp; CYBER AWARENESS
+            </div>
+
+            <h1>
+                Fight Cyber Crime.<br>
+                <span>Protect Your Digital World.</span>
+            </h1>
+
+            <p class="home-description">
+                Report cyber crimes through our complaint portal.
+                Submit your complaint, monitor its status and keep
+                track of your report in one place.
+            </p>
+
+            <div class="home-actions">
+                <a href="/register" class="home-primary-btn">
+                    File a Complaint <span>→</span>
+                </a>
+                <a href="/login" class="home-secondary-btn">
+                    User Login
+                </a>
+            </div>
+
+            <div class="home-trust-note">
+                <span>✓</span> Simple complaint submission
+                <span class="home-note-divider">•</span>
+                <span>✓</span> Status tracking
+            </div>
+        </div>
+
+        <div class="home-visual">
+            <div class="home-glow"></div>
+
+            <div class="home-shield-card">
+                <div class="home-shield-top">
+                    <span class="home-mini-dot"></span>
+                    CYBER SECURITY
+                    <span class="home-live">PORTAL</span>
+                </div>
+
+                <div class="home-shield-art">🛡️</div>
+
+                <div class="home-shield-title">
+                    Your Safety Matters
+                </div>
+
+                <p>
+                    Stay alert. Report suspicious online activity.
+                </p>
+
+                <div class="home-security-line">
+                    <span></span>
+                </div>
+
+                <div class="home-security-footer">
+                    <span>CYBER AWARENESS</span>
+                    <span>01 / 03</span>
+                </div>
+            </div>
+
+            <div class="home-float-card home-float-top">
+                <span class="home-float-icon">🔐</span>
+                <span>
+                    <strong>Secure Access</strong>
+                    <small>Protected login</small>
+                </span>
+            </div>
+
+            <div class="home-float-card home-float-bottom">
+                <span class="home-float-icon">📋</span>
+                <span>
+                    <strong>Track Your Report</strong>
+                    <small>Check complaint status</small>
+                </span>
+            </div>
+        </div>
+    </section>
+
+    <section class="home-features">
+        <div class="home-section-heading">
+            <span>OUR SERVICES</span>
+            <h2>Everything you need, in one place.</h2>
+            <p>
+                A simple way to report cyber crime and follow your complaint.
+            </p>
+        </div>
+
+        <div class="home-feature-grid">
+            <article class="home-feature-card">
+                <div class="home-feature-icon">🔒</div>
+                <h3>Complaint Submission</h3>
+                <p>
+                    Submit complaint details and supporting evidence
+                    through the portal.
+                </p>
+                <a href="/register">Get started <span>→</span></a>
+            </article>
+
+            <article class="home-feature-card">
+                <div class="home-feature-icon">📊</div>
+                <h3>Status Tracking</h3>
+                <p>
+                    Log in to view your submitted complaints and
+                    their latest recorded status.
+                </p>
+                <a href="/login">Track complaint <span>→</span></a>
+            </article>
+
+            <article class="home-feature-card">
+                <div class="home-feature-icon">🛡️</div>
+                <h3>Admin Management</h3>
+                <p>
+                    Authorized administrators can review reports
+                    and update complaint status.
+                </p>
+                <a href="/admin">Admin access <span>→</span></a>
+            </article>
+        </div>
+    </section>
+
+    <section class="home-awareness">
+        <div>
+            <span class="home-awareness-label">STAY CYBER AWARE</span>
+            <h2>Think before you click.</h2>
+            <p>
+                Never share passwords or OTPs with strangers.
+                Verify suspicious links and protect your personal information.
+            </p>
+        </div>
+        <div class="home-awareness-icon">💻</div>
+    </section>
+</main>
+
+<footer class="home-footer">
+    <a href="/" class="home-footer-brand">🛡️ CyberShield</a>
+    <p>Cyber Crime Complaint Portal · TYCS Academic Project · 2026</p>
+    <a href="/admin">Admin Login</a>
+</footer>
+
 </body>
 </html>
