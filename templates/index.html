@@ -1,54 +1,103 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html><html lang="en">
 <head>
-    <title>Cyber Crime Complaint Portal</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CyberShield | Secure Digital World</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--green:#00ff88;--bg:#050806;--panel:#0c120e;--muted:#9aa99f;--border:#1c3828}
+body{font-family:Arial,sans-serif;background:var(--bg);color:#f2fff6}
+header{height:auto;min-height:76px;padding:20px 7%;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;background:#080d09;border-bottom:1px solid var(--border)}
+.logo{font-size:25px;font-weight:800;color:var(--green);letter-spacing:1px}
+nav{display:flex;gap:22px;flex-wrap:wrap}
+nav a{color:#d4e3d8;text-decoration:none;font-size:14px}
+nav a:hover{color:var(--green)}
+.hero{min-height:590px;padding:85px 7%;display:grid;grid-template-columns:1.4fr .8fr;gap:45px;align-items:center;background:radial-gradient(ellipse at 80% 35%,#10331e 0%,#071009 35%,#050806 72%)}
+.tag{display:inline-block;color:var(--green);border:1px solid #17673b;background:#0b2113;padding:9px 13px;border-radius:5px;font-size:12px;letter-spacing:2px;margin-bottom:24px}
+h1{font-size:clamp(38px,5.5vw,65px);line-height:1.1;margin-bottom:22px}
+h1 span{color:var(--green);text-shadow:0 0 22px #00ff8844}
+.intro{color:var(--muted);font-size:16px;line-height:1.8;max-width:580px}
+.actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:30px}
+.btn{padding:14px 21px;border-radius:5px;text-decoration:none;font-size:14px;font-weight:bold;display:inline-block}
+.primary{background:var(--green);color:#041008;box-shadow:0 0 20px #00ff8822}
+.primary:hover{box-shadow:0 0 25px #00ff8866}
+.secondary{border:1px solid #31543c;color:#eaffef}
+.terminal{background:#080f0a;border:1px solid #1d6038;border-radius:12px;padding:24px;box-shadow:0 0 35px #00ff8810}
+.terminal-head{display:flex;justify-content:space-between;align-items:center;padding-bottom:18px;border-bottom:1px solid #203727;color:var(--green);font-size:12px;letter-spacing:1px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--green);display:inline-block;margin-right:7px;box-shadow:0 0 10px var(--green)}
+.shield{font-size:75px;text-align:center;padding:25px 0;color:var(--green);text-shadow:0 0 35px #00ff8855}
+.line{display:flex;justify-content:space-between;padding:13px 0;border-top:1px solid #14251a;font-size:13px}
+.good{color:var(--green)}
+.section{padding:65px 7%}
+.section-title{text-align:center;font-size:30px;margin-bottom:12px}
+.section-title span{color:var(--green)}
+.section-sub{text-align:center;color:var(--muted);line-height:1.7;margin-bottom:35px}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.card{background:var(--panel);border:1px solid var(--border);border-radius:9px;padding:27px;transition:.2s}
+.card:hover{border-color:var(--green);transform:translateY(-3px);box-shadow:0 0 20px #00ff8810}
+.symbol{font-size:27px;color:var(--green);margin-bottom:18px}
+.card h3{margin-bottom:12px;font-size:18px}
+.card p{color:var(--muted);font-size:14px;line-height:1.8}
+.card a{display:inline-block;margin-top:18px;color:var(--green);text-decoration:none;font-size:13px}
+.notice{margin:0 7% 60px;border:1px solid #235337;background:#0a170e;padding:24px;border-radius:8px;color:#b8cbbd;line-height:1.7;font-size:14px}
+.notice strong{color:var(--green)}
+footer{text-align:center;border-top:1px solid var(--border);padding:27px 15px;color:#829388;font-size:12px;line-height:1.8}
+@media(max-width:800px){.hero{grid-template-columns:1fr;padding-top:65px;padding-bottom:65px}.terminal{max-width:500px;width:100%}.cards{grid-template-columns:1fr}.section{padding:50px 6%}}
+</style>
 </head>
-
 <body>
-
-<header class="navbar">
-    <h2>🛡 Cyber Crime Complaint Portal</h2>
-
-    <div>
-        <a href="/">Home</a>
-        <a href="/register">Register</a>
-        <a href="/login">User Login</a>
-        <a href="/admin">Admin Login</a>
+<header>
+  <div class="logo">⬡ CyberShield</div>
+  <nav>
+    <a href="/">Home</a>
+    <a href="/register">Register</a>
+    <a href="/login">User Login</a>
+    <a href="/status">Track Complaint</a>
+    <a href="/admin">Admin</a>
+  </nav>
+</header><main>
+<section class="hero">
+  <div>
+    <div class="tag">● DIGITAL SECURITY & AWARENESS</div>
+    <h1>Secure Your World.<br><span>Stop Cyber Crime.</span></h1>
+    <p class="intro">A digital platform designed to help users submit cyber crime complaints and monitor their status. Take the first step toward a safer digital world.</p>
+    <div class="actions">
+      <a class="btn primary" href="/register">＋ File a Complaint</a>
+      <a class="btn secondary" href="/login">Access Your Account →</a>
     </div>
-</header>
-
-<div class="hero">
-    <h1>Welcome to Cyber Crime Complaint Portal</h1>
-
-    <p>
-        Report Cyber Crimes Securely • Track Complaint Status • Fast & Reliable Service
-    </p>
-
-    <a href="/register" class="btn">Register Now</a>
-</div>
-<section class="features">
-
-    <div class="card">
-        <h3>🔒 Secure Complaint</h3>
-        <p>Your complaint is stored securely in the database.</p>
-    </div>
-
-    <div class="card">
-        <h3>📄 Track Status</h3>
-        <p>Check whether your complaint is Pending, In Progress or Resolved.</p>
-    </div>
-
-    <div class="card">
-        <h3>👮 Admin Monitoring</h3>
-        <p>Authorized admins manage and update complaint status.</p>
-    </div>
-
-</section>
-
-<footer>
-    © 2026 Cyber Crime Complaint Portal | TYCS Project
-</footer>
-
+  </div>
+  <div class="terminal">
+    <div class="terminal-head"><span>CYBERSHIELD / SYSTEM</span><span><i class="dot"></i>ONLINE</span></div>
+    <div class="shield">⬡</div>
+    <div class="line"><span>Portal Status</span><strong class="good">ACTIVE</strong></div>
+    <div class="line"><span>Complaint Tracking</span><strong class="good">ENABLED</strong></div>
+    <div class="line"><span>Admin Management</span><strong class="good">ENABLED</strong></div>
+    <div class="line"><span>Access</span><strong>SECURE LOGIN</strong></div>
+  </div>
+</section><section class="section">
+  <h2 class="section-title">Your Safety. <span>Our Priority.</span></h2>
+  <p class="section-sub">Simple tools to report and manage cyber crime complaints.</p>
+  <div class="cards">
+    <article class="card">
+      <div class="symbol">⌁</div>
+      <h3>Report Cyber Crime</h3>
+      <p>Submit complaint details through the portal and provide relevant information for review.</p>
+      <a href="/complaint">Submit a complaint →</a>
+    </article>
+    <article class="card">
+      <div class="symbol">◎</div>
+      <h3>Track Your Case</h3>
+      <p>Sign in to view the status of complaints associated with your account.</p>
+      <a href="/status">Check status →</a>
+    </article>
+    <article class="card">
+      <div class="symbol">⌘</div>
+      <h3>Case Management</h3>
+      <p>Authorized administrators can review reports, update case status, and manage records.</p>
+      <a href="/admin">Admin access →</a>
+    </article>
+  </div>
+</section><div class="notice"><strong>Important:</strong> CyberShield is an academic project portal, not an official government reporting service. For real cybercrime incidents in India, use the official National Cyber Crime Reporting Portal at cybercrime.gov.in.</div>
+</main><footer>CYBERSHIELD © 2026 · CYBER CRIME COMPLAINT PORTAL<br>Academic Project · Promoting a safer digital environment</footer>
 </body>
 </html>
